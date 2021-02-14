@@ -1,0 +1,2 @@
+include RiskClassifier/bentoml.yml
+graft RiskClassifier/artifacts
