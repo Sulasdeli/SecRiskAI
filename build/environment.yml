@@ -1,0 +1,4 @@
+name: bentoml-default-conda-env
+channels:
+- defaults
+dependencies: []
