@@ -15,4 +15,5 @@ if __name__ == "__main__":
     risk_classifier_service.pack('scaler', load('src/scaler/MinMaxScaler.joblib'))
 
     # Save the prediction service to disk for model serving
-    saved_path = risk_classifier_service.save_to_dir("./build")
+    #saved_path = risk_classifier_service.save_to_dir("./build")
+    saved_path = risk_classifier_service.save()
