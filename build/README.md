@@ -1,4 +1,4 @@
-# Generated BentoService bundle - RiskClassifier:20210218202758_59D359
+# Generated BentoService bundle - RiskClassifier:20210218225500_8490EE
 
 This is a ML Service bundle created with BentoML, it is not recommended to edit
 code or files contained in this directory. Instead, edit the code that uses BentoML
