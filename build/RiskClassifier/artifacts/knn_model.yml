@@ -1,0 +1,3 @@
+accuracy: 96.59%
+n_neighbors: 28
+weights: distance

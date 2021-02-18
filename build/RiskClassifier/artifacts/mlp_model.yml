@@ -1,0 +1,5 @@
+accuracy: 99.57%
+activation: tanh
+hidden_layer_sizes: (5, 2)
+learning_rate: constant
+solver: adam
