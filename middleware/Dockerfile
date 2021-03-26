@@ -2,7 +2,7 @@ FROM node:14-alpine as builder
 
 ENV NODE_ENV build
 
-USER node
+USER root
 WORKDIR /home/node
 
 COPY . /home/node
@@ -15,12 +15,13 @@ FROM node:14-alpine
 
 ENV NODE_ENV production
 
-USER node
+USER root
 WORKDIR /home/node
 
 COPY --from=builder /home/node/package*.json /home/node/
 COPY --from=builder /home/node/dist/ /home/node/dist/
 
+EXPOSE 8080
 RUN npm ci
 
-CMD ["node", "dist/server.js"]
+CMD ["node", "dist/main"]
