@@ -9,10 +9,20 @@ services:
     networks:
       - backend
   ml_decision_server:
-    build: ml_decision_server/build
+    image: sulasdelii/risk_classifier:latest
     expose:
       - "5000"
     networks:
       - backend
+  ml_models_management:
+    image: bentoml/yatai-service:latest
+    command:
+      - --db-url=${DB_URL}
+      - --repo-base-url=${REPO_BASE_URL}
+    volumes:
+      - ${BENTO_HOME}:/bentoml
+    ports:
+      - "50051:50051"
+      - "3000:3000"
 networks:
   backend:
