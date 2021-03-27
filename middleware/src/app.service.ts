@@ -1,24 +1,19 @@
 import {HttpService, Injectable} from '@nestjs/common';
+import {UserProfile} from "./model/UserProfile";
+import {Levels} from "./enums/levels";
+import {Advisor} from "./enums/advisor";
 
 @Injectable()
 export class AppService {
 
-    constructor(private httpService: HttpService) {
+    constructor(private httpService: HttpService) {}
+
+    predict(body: UserProfile): Promise<any> {
+        return this.httpService.post(`${process.env.ML_SERVER_URL}/predict`, this.toPredictionRequest(body)).toPromise();
     }
 
 
-    getHello(): Promise<any> {
-
-        let testBody = {
-            "invested_amount": 1077113,
-            "successful_attacks": 8,
-            "failed_attacks": 29,
-            "business_value": 4947796,
-            "nr_employees": 57879,
-            "employee_training": "MEDIUM",
-            "known_vulnerabilities": 6,
-            "external_advisor": "YES"
-        }
-            return this.httpService.post('http://ml_decision_server:5000/predict', testBody).toPromise();
+    toPredictionRequest = (body: UserProfile): string => {
+        return `[[${body.investedAmount}, ${body.successfulAttacks}, ${body.failedAttacks}, ${body.businessValue}, ${body.nrEmployees}, ${Levels[body.employeeTraining]}, ${body.knownVulnerabilities}, ${Advisor[body.externalAdvisor]}]]`;
     }
 }

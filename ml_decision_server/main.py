@@ -1,8 +1,6 @@
 from src.risk_classifier import RiskClassifier
 from joblib import load
 
-prediction_result_mapping = {0: "LOW", 1: "MEDIUM", 2: "HIGH"}
-
 if __name__ == "__main__":
     # Create a risk classifier service instance
     risk_classifier_service = RiskClassifier()
@@ -36,8 +34,11 @@ if __name__ == "__main__":
                                      'min_samples_leaf': 5,
                                      'min_samples_split': 5
                                  })
-    risk_classifier_service.pack('scaler', load('src/scaler/MinMaxScaler.joblib'))
+    risk_classifier_service.pack('scaler', load('src/scaler/MinMaxScaler.joblib'),
+                                 metadata={
+                                     'type': 'Min Max Scaler'
+                                 })
 
     # Save the prediction service to disk for model serving
-    #saved_path = risk_classifier_service.save_to_dir("./build")
+    # saved_path = risk_classifier_service.save_to_dir("./build")
     saved_path = risk_classifier_service.save()
