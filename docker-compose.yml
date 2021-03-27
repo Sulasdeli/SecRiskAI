@@ -4,7 +4,15 @@ services:
     build: middleware
     ports:
       - "8080:8080"
+    links:
+      - ml_decision_server
+    networks:
+      - backend
   ml_decision_server:
     build: ml_decision_server/build
-    ports:
-      - "5000:5000"
+    expose:
+      - "5000"
+    networks:
+      - backend
+networks:
+  backend:
