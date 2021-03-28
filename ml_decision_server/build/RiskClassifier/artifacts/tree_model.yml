@@ -1,5 +1,0 @@
-accuracy: 93.15%
-criterion: gini
-max_depth: 9
-min_samples_leaf: 5
-min_samples_split: 5
