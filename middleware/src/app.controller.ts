@@ -8,8 +8,8 @@ export class AppController {
     constructor(private readonly appService: AppService) {}
 
     @Post("/predict")
-    async predict(@Body() body: UserProfile): Promise<PredictionResult> {
-        let response = await this.appService.predict(body);
-        return response.data
+    async predict(@Body() profile: UserProfile): Promise<PredictionResult> {
+        let prediction = await this.appService.predict(profile);
+        return prediction.data
     }
 }
