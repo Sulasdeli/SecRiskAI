@@ -28,12 +28,9 @@ export const fetchPredictions = (profile: UserProfile): any => {
         //await new Promise(resolve => setTimeout(resolve, 2000));
         fetch(`${getDomain()}/predict`, {...HTTP_OPTIONS(PROTOCOL_METHOD.POST), body: JSON.stringify(profile)})
             .then(res => {
-                console.log(res)
-                console.log(JSON.stringify(profile))
                 return res.json();
             })
             .then((response: any) => {
-                console.log(response)
                 dispatch({
                     type: ActionTypes.FETCHED_PREDICTIONS,
                     predictions: response,
@@ -41,7 +38,6 @@ export const fetchPredictions = (profile: UserProfile): any => {
                 });
             })
             .catch((error: string) => {
-                console.log(error)
                 dispatch({
                     type: ActionTypes.ERROR_FETCHING_PREDICTIONS,
                     error,

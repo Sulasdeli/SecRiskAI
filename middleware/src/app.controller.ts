@@ -9,7 +9,6 @@ export class AppController {
 
     @Post("/predict")
     async predict(@Body() profile: UserProfile): Promise<PredictionResult> {
-        console.log(profile)
         let prediction = await this.appService.predict(profile);
         return prediction.data
     }
