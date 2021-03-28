@@ -2,6 +2,7 @@ import {ActionTypes, UpdateProfile, UserProfileState} from "./types";
 
 const initialState: UserProfileState = {
     data: {
+        "companyName": "Company XY",
         "investedAmount": 1077113,
         "successfulAttacks": 8,
         "failedAttacks": 29,
@@ -21,7 +22,7 @@ export const profileReducer = () => {
     ) => {
         switch (action.type) {
             case ActionTypes.UPDATING_PROFILE:
-                return {...state, data: action.data, updating: action.updating};
+                return {data: action.profile, updating: action.updating};
             default:
                 return state;
         }

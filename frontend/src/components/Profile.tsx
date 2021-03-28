@@ -26,6 +26,7 @@ export enum Advisor {
 }
 
 const schema = yup.object().shape({
+    companyName: yup.string().required(),
     businessValue: yup.number().required(),
     nrEmployees: yup.number().required(),
     employeeTraining: yup.string().oneOf(Object.values(Levels)).required(),
@@ -84,9 +85,16 @@ export const Profile = () => {
                                                     <Form.Group>
                                                         <label>Company</label>
                                                         <Form.Control
+                                                            defaultValue={values.companyName}
                                                             placeholder="Company"
+                                                            name="company"
                                                             type="text"
-                                                        ></Form.Control>
+                                                            onChange={handleChange}
+                                                            isInvalid={!!errors.companyName}
+                                                        />
+                                                        <Form.Control.Feedback type="invalid">
+                                                            Company Name is required
+                                                        </Form.Control.Feedback>
                                                     </Form.Group>
                                                 </Col>
                                             </Row>

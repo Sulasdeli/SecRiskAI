@@ -1,4 +1,5 @@
 export type UserProfile = {
+    companyName: string,
     investedAmount: number,
     successfulAttacks: number,
     failedAttacks: number,
@@ -18,7 +19,7 @@ export enum ActionTypes {
  */
 export type UpdateProfile = {
     type: ActionTypes.UPDATING_PROFILE,
-    data: UserProfile,
+    profile: UserProfile,
     updating: boolean
 };
 
