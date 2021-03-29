@@ -1,11 +1,20 @@
 version: "3.9"
 services:
+  web:
+    build: frontend
+    ports:
+      - "3001:3001"
+    links:
+      - middleware
+
   middleware:
     build: middleware
     ports:
       - "8080:8080"
     links:
       - ml_decision_server
+    environment:
+      - ML_SERVER_URL=http://ml_decision_server:5000
     networks:
       - backend
   ml_decision_server:

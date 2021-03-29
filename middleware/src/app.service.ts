@@ -9,6 +9,7 @@ export class AppService {
     constructor(private httpService: HttpService) {}
 
     predict(body: UserProfile): Promise<any> {
+        console.log(`${process.env.ML_SERVER_URL}/predict`)
         return this.httpService.post(`${process.env.ML_SERVER_URL}/predict`, this.toPredictionRequest(body)).toPromise();
     }
 
