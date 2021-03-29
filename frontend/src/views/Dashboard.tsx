@@ -164,7 +164,7 @@ export const Dashboard = () => {
                         <Card className="card-stats">
                             <Card.Header>
                                 <Card.Title>
-                                    <h4>Prediction Results</h4>
+                                    <h4>Overall Cyberattack Risk Prediction</h4>
                                 </Card.Title>
                             </Card.Header>
                             <Card.Body>
@@ -193,6 +193,35 @@ export const Dashboard = () => {
                                         <div className="numbers">
                                             <p className="card-category">Decision Tree</p>
                                             <Card.Title as="h4">{predictions.DTree_prediction}</Card.Title>
+                                        </div>
+                                    </Col>
+                                </Row>
+                            </Card.Body>
+                            <Card.Footer>
+                                <hr></hr>
+                                <div className="stats"/>
+                            </Card.Footer>
+                        </Card>
+                    </Col>
+                    <Col lg="3" sm="6">
+                        <Card className="card-stats">
+                            <Card.Header>
+                                <Card.Title>
+                                    <h4>DDoS Attack Risk</h4>
+                                </Card.Title>
+                            </Card.Header>
+                            <Card.Body>
+                                <hr></hr>
+                                <Row>
+                                    <Col xs="5">
+                                        <div className="icon-big text-center icon-warning">
+                                            <i className="nc-icon nc-notes text-warning"></i>
+                                        </div>
+                                    </Col>
+                                    <Col xs="7">
+                                        <div className="numbers">
+                                            <p className="card-category">Prediction</p>
+                                            <Card.Title as="h4">{predictions.MLP_prediction}</Card.Title>
                                         </div>
                                     </Col>
                                 </Row>
