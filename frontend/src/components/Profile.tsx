@@ -55,7 +55,7 @@ export const Profile = () => {
         <>
             <Container fluid>
                 <Row>
-                    <Col md="8">
+                    <Col md="5">
                         <Card>
                             <Card.Header>
                                 <Card.Title as="h3">Edit Profile</Card.Title>
@@ -78,6 +78,7 @@ export const Profile = () => {
                                           handleChange,
                                           values,
                                           errors,
+                                          isValid
                                       }) => (
                                         <Form noValidate onSubmit={handleSubmit}>
                                             <Row>
@@ -190,7 +191,7 @@ export const Profile = () => {
                                                 </Col>
                                             </Row>
                                             <Row>
-                                                <Col className="pr-1" md="3">
+                                                <Col className="pr-1" md="4">
                                                     <Form.Group>
                                                         <label>Successful Past Attacks</label>
                                                         <Form.Control
@@ -205,7 +206,7 @@ export const Profile = () => {
                                                         </Form.Control.Feedback>
                                                     </Form.Group>
                                                 </Col>
-                                                <Col className="px-1" md="3">
+                                                <Col className="px-1" md="4">
                                                     <Form.Group>
                                                         <label>Failed Past Attacks</label>
                                                         <Form.Control
@@ -223,6 +224,7 @@ export const Profile = () => {
                                                 </Col>
                                             </Row>
                                             <Button
+                                                disabled={!isValid}
                                                 className="btn-fill pull-right"
                                                 type="submit"
                                                 variant="info">Update</Button>
