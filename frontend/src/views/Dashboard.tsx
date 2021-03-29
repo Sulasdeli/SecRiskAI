@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {
     Card,
     Container,
@@ -9,16 +9,30 @@ import useAppState from "../hooks/use-app-state";
 import NumberFormat from 'react-number-format';
 import {useDispatch} from "react-redux";
 import {fetchPredictions} from "../reducers/Prediction/action";
+import {GiTrafficLightsGreen, GiTrafficLightsOrange, GiTrafficLightsRed} from "react-icons/all";
+import {CustomSpinner} from "../components/CustomSpinner";
 
 export const Dashboard = () => {
     const {data} = useAppState(s => s.profile);
-    const {predictions, loading} = useAppState(s => s.predictions)
+    const {predictions, loading, error} = useAppState(s => s.predictions)
     const dispatch = useDispatch();
 
     useEffect(() => {
-        const { ['companyName']: _, ...profile } = data;
+        const {['companyName']: _, ...profile} = data;
         dispatch(fetchPredictions(profile))
     }, [data]);
+
+    const getClassfromRisk = (risk: string) => {
+        switch (risk) {
+            case "HIGH":
+                return <GiTrafficLightsRed className="nc-icon nc-notes text-danger"/>
+            case "MEDIUM":
+                return <GiTrafficLightsOrange className="nc-icon nc-notes text-warning"/>
+            default:
+                return <GiTrafficLightsGreen className="nc-icon nc-notes text-success"/>
+        }
+
+    }
 
 
     return (
@@ -169,33 +183,37 @@ export const Dashboard = () => {
                             </Card.Header>
                             <Card.Body>
                                 <hr></hr>
-                                <Row>
-                                    <Col xs="5">
-                                        <div className="icon-big text-center icon-warning">
-                                            <i className="nc-icon nc-notes text-warning"></i>
-                                        </div>
-                                    </Col>
-                                    <Col xs="7">
-                                        <div className="numbers">
-                                            <p className="card-category">K-Nearest Neighbours</p>
-                                            <Card.Title as="h4">{predictions.KNN_prediction}</Card.Title>
-                                        </div>
+                                {loading ? <CustomSpinner/> : (
+                                    error ? <h5 className="text-danger text-md-center font-italic">Failed to fetch server...</h5> : (
+                                        <Row>
+                                            <Col xs="5">
+                                                <div className="icon-big text-center icon-warning">
+                                                    <i className="nc-icon nc-notes" style={{color: "#3255a5"}}></i>
+                                                </div>
+                                            </Col>
+                                            <Col xs="7">
+                                                <div className="numbers">
+                                                    <p className="card-category">K-Nearest Neighbours</p>
+                                                    <Card.Title as="h4">{predictions.KNN_prediction}</Card.Title>
+                                                </div>
 
-                                        <div className="numbers">
-                                            <p className="card-category">Multi-Layer Perceptron</p>
-                                            <Card.Title as="h4">{predictions.MLP_prediction}</Card.Title>
-                                        </div>
+                                                <div className="numbers">
+                                                    <p className="card-category">Multi-Layer Perceptron</p>
+                                                    <Card.Title as="h4">{predictions.MLP_prediction}</Card.Title>
+                                                </div>
 
-                                        <div className="numbers">
-                                            <p className="card-category">Support Vector Machine</p>
-                                            <Card.Title as="h4">{predictions.SVM_prediction}</Card.Title>
-                                        </div>
-                                        <div className="numbers">
-                                            <p className="card-category">Decision Tree</p>
-                                            <Card.Title as="h4">{predictions.DTree_prediction}</Card.Title>
-                                        </div>
-                                    </Col>
-                                </Row>
+                                                <div className="numbers">
+                                                    <p className="card-category">Support Vector Machine</p>
+                                                    <Card.Title as="h4">{predictions.SVM_prediction}</Card.Title>
+                                                </div>
+                                                <div className="numbers">
+                                                    <p className="card-category">Decision Tree</p>
+                                                    <Card.Title as="h4">{predictions.DTree_prediction}</Card.Title>
+                                                </div>
+                                            </Col>
+                                        </Row>
+                                    )
+                                )}
                             </Card.Body>
                             <Card.Footer>
                                 <hr></hr>
@@ -212,19 +230,28 @@ export const Dashboard = () => {
                             </Card.Header>
                             <Card.Body>
                                 <hr></hr>
-                                <Row>
-                                    <Col xs="5">
-                                        <div className="icon-big text-center icon-warning">
-                                            <i className="nc-icon nc-notes text-warning"></i>
-                                        </div>
-                                    </Col>
-                                    <Col xs="7">
-                                        <div className="numbers">
-                                            <p className="card-category">Prediction</p>
-                                            <Card.Title as="h4">{predictions.MLP_prediction}</Card.Title>
-                                        </div>
-                                    </Col>
-                                </Row>
+
+                                {loading ? <CustomSpinner/> : (
+                                    error ? <h5 className="text-danger text-md-center font-italic">Failed to fetch server...</h5> : (
+                                        <Row>
+                                            <Col xs="5">
+                                                <div className="icon-big text-center icon-warning" style={{
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                    justifyContent: "center"
+                                                }}>
+                                                    {getClassfromRisk(predictions.MLP_prediction)}
+                                                </div>
+                                            </Col>
+                                            <Col xs="7">
+                                                <div className="numbers">
+                                                    <p className="card-category">Prediction</p>
+                                                    <Card.Title as="h4">{predictions.MLP_prediction}</Card.Title>
+                                                </div>
+                                            </Col>
+                                        </Row>
+                                    )
+                                )}
                             </Card.Body>
                             <Card.Footer>
                                 <hr></hr>
