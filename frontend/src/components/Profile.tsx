@@ -13,6 +13,7 @@ import {Formik} from "formik";
 import * as yup from 'yup';
 import {useDispatch} from "react-redux";
 import {ActionTypes, UserProfile} from "../reducers/UserProfile/types";
+import {toast, ToastContainer} from "react-toastify";
 
 export enum Levels {
     "High" = "HIGH",
@@ -225,6 +226,7 @@ export const Profile = () => {
                                             </Row>
                                             <Button
                                                 disabled={!isValid}
+                                                onClick={() => toast.success("Profile updated successfully!")}
                                                 className="btn-fill pull-right"
                                                 type="submit"
                                                 variant="info">Update</Button>

@@ -4,6 +4,7 @@ import {Sidebar} from "../components/Sidebar";
 import {Header} from "../components/Header";
 import routes from "../routes/routes";
 import {Footer} from "../components/Footer";
+import {ToastContainer} from "react-toastify";
 
 export const User = () => {
     const [color] = React.useState("black");
@@ -47,6 +48,7 @@ export const User = () => {
                 <div className="main-panel" ref={mainPanel}>
                     <Header/>
                     <div className="content">
+                        <ToastContainer />
                         <Switch>{getRoutes(routes)}</Switch>
                     </div>
                     <Footer/>
