@@ -18,9 +18,9 @@ export const Dashboard = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        const {['companyName']: _, ...profile} = data;
+        const {['companyName']: _, ...profile} = data; // eslint-disable-line
         dispatch(fetchPredictions(profile))
-    }, [data]);
+    }, [data, dispatch]);
 
     const getClassfromRisk = (risk: string) => {
         switch (risk) {
@@ -78,7 +78,7 @@ export const Dashboard = () => {
                                 </Row>
                             </Card.Body>
                             <Card.Footer>
-                                <hr></hr>
+                                <hr/>
                                 <div className="stats"/>
                             </Card.Footer>
                         </Card>
@@ -112,7 +112,7 @@ export const Dashboard = () => {
                                 </Row>
                             </Card.Body>
                             <Card.Footer>
-                                <hr></hr>
+                                <hr/>
                                 <div className="stats"/>
                             </Card.Footer>
                         </Card>

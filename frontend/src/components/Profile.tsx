@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 
 import {
     Button,
@@ -13,7 +13,7 @@ import {Formik} from "formik";
 import * as yup from 'yup';
 import {useDispatch} from "react-redux";
 import {ActionTypes, UserProfile} from "../reducers/UserProfile/types";
-import {toast, ToastContainer} from "react-toastify";
+import {toast} from "react-toastify";
 
 export enum Levels {
     "High" = "HIGH",
@@ -40,17 +40,7 @@ const schema = yup.object().shape({
 
 export const Profile = () => {
     const {data} = useAppState(s => s.profile);
-    const [validated, setValidated] = useState(false);
     const dispatch = useDispatch();
-    const handleSubmit = (event: any) => {
-        const form = event.currentTarget;
-        if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-        setValidated(true);
-    };
-
 
     return (
         <>

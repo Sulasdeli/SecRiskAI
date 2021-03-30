@@ -8,7 +8,7 @@ export const Footer = () => {
                 <nav>
                     <ul className="footer-menu">
                         <li>
-                            <a href="https://www.csg.uzh.ch/csg/en/" target="_blank">CSG UZH</a>
+                            <a href="https://www.csg.uzh.ch/csg/en/" target="_blank" rel="noreferrer">CSG UZH</a>
                         </li>
                     </ul>
                     <p className="copyright text-center">

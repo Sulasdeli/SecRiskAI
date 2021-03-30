@@ -19,7 +19,7 @@ export const Sidebar = (props: SidebarProps) => {
         <div className="sidebar" data-color={props.color}>
             <div className="sidebar-wrapper">
                 <div className="logo d-flex align-items-center justify-content-start">
-                    <a className="simple-text logo-mini mx-1">
+                    <a href="/#" className="simple-text logo-mini mx-1">
                         <div className="logo-img">
                             {/*<img*/}
                             {/*  src={require("../assets/img/reactlogo.png").default}*/}
@@ -27,7 +27,7 @@ export const Sidebar = (props: SidebarProps) => {
                             {/*/>*/}
                         </div>
                     </a>
-                    <a className="simple-text">
+                    <a href="/#" className="simple-text">
                         Cyber Risk Classifier
                     </a>
                 </div>
