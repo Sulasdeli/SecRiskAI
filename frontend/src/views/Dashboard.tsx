@@ -225,7 +225,7 @@ export const Dashboard = () => {
                         <Card className="card-stats">
                             <Card.Header>
                                 <Card.Title>
-                                    <h4>DDoS Attack Risk</h4>
+                                    <h4>Attack Risks</h4>
                                 </Card.Title>
                             </Card.Header>
                             <Card.Body>
@@ -245,7 +245,7 @@ export const Dashboard = () => {
                                             </Col>
                                             <Col xs="7">
                                                 <div className="numbers">
-                                                    <p className="card-category">Prediction</p>
+                                                    <p className="card-category">DDoS</p>
                                                     <Card.Title as="h4">{predictions.MLP_prediction}</Card.Title>
                                                 </div>
                                             </Col>
