@@ -6,8 +6,9 @@ const initialState: PredictionState = {
         MLP_prediction: "",
         SVM_prediction: "",
         DTree_prediction: "",
+        ddos_prediction: "",
     },
-    loading: false
+    pred_loading: false
 };
 
 export const predictionReducer = () => {
@@ -17,15 +18,15 @@ export const predictionReducer = () => {
     ) => {
         switch (action.type) {
             case ActionTypes.FETCHING_PREDICTIONS:
-                return {...state, loading: action.loading};
+                return {...state, pred_loading: action.loading};
             case ActionTypes.FETCHED_PREDICTIONS:
                 return {
                     ...state,
                     predictions: action.predictions,
-                    loading: action.loading
+                    pred_loading: action.loading
                 };
             case ActionTypes.ERROR_FETCHING_PREDICTIONS:
-                return {...state, error: action.error, loading: action.loading};
+                return {...state, error: action.error, pred_loading: action.loading};
             default:
                 return state;
         }

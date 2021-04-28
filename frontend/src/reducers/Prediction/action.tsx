@@ -25,7 +25,7 @@ export const fetchPredictions = (profile: UserProfile): any => {
         });
 
         //dummy promise
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        await new Promise(resolve => setTimeout(resolve, 1000));
         fetch(`${getDomain()}/predict`, {...HTTP_OPTIONS(PROTOCOL_METHOD.POST), body: JSON.stringify(profile)})
             .then(res => {
                 return res.json();

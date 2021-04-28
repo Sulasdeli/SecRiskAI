@@ -2,7 +2,8 @@ export type Prediction = {
     KNN_prediction: string,
     MLP_prediction: string,
     SVM_prediction: string,
-    DTree_prediction: string
+    DTree_prediction: string,
+    ddos_prediction: string
 }
 
 export enum ActionTypes {
@@ -37,6 +38,6 @@ export type ErrorFetchingPredictions = {
  */
 export type PredictionState = {
     predictions: Prediction,
-    error?: string,
-    loading: boolean
+    pred_error?: string,
+    pred_loading: boolean
 };

@@ -3,6 +3,9 @@ import {ActionTypes, UpdateProfile, UserProfileState} from "./types";
 const initialState: UserProfileState = {
     data: {
         "companyName": "Company XY",
+        "industry": "Healthcare",
+        "region": "EUROPE",
+        "budget": 50000,
         "investedAmount": 1077113,
         "successfulAttacks": 8,
         "failedAttacks": 29,

@@ -6,7 +6,6 @@ services:
       - "3001:3001"
     links:
       - middleware
-
   middleware:
     build: middleware
     ports:
@@ -33,5 +32,11 @@ services:
     ports:
       - "50051:50051"
       - "3000:3000"
+  protectddos:
+    image: sulasdelii/protectddos:latest
+    ports:
+      - "5001"
+    networks:
+      - backend
 networks:
   backend:

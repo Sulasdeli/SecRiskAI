@@ -12,4 +12,10 @@ export class AppController {
         let prediction = await this.appService.predict(profile);
         return prediction.data
     }
+
+    @Post("/recommend")
+    async recommend(): Promise<PredictionResult> {
+        let recommendation = await this.appService.recommend();
+        return recommendation.data.recommendedServices
+    }
 }

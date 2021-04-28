@@ -35,5 +35,7 @@ class RiskClassifier(BentoService):
             "KNN_prediction": prediction_result_mapping[self.artifacts.knn_model.predict(normalized_df)[0]],
             "MLP_prediction": prediction_result_mapping[self.artifacts.mlp_model.predict(normalized_df)[0]],
             "SVM_prediction": prediction_result_mapping[self.artifacts.svm_model.predict(normalized_df)[0]],
-            "DTree_prediction": prediction_result_mapping[self.artifacts.tree_model.predict(df)[0]]
+            "DTree_prediction": prediction_result_mapping[self.artifacts.tree_model.predict(df)[0]],
+            # TODO design and implement model for predicting DDoS risk
+            "ddos_prediction": prediction_result_mapping[self.artifacts.mlp_model.predict(normalized_df)[0]],
         }
