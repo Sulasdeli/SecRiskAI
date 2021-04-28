@@ -28,7 +28,6 @@ export const Dashboard = () => {
 
     // Fetch Protection Service Recommendations
     useEffect(() => {
-        console.log(predictions)
         if (predictions.ddos_prediction !== "") {
             dispatch(fetchRecommendations())
         }
