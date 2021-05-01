@@ -2,6 +2,7 @@ export type Recommendation = {
     id: number,
     image: string,
     serviceName: string,
+    providerName: string,
     description: string,
     deployment: string,
     leasingPeriod: string,

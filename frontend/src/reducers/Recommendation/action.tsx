@@ -17,7 +17,11 @@ export const fetchRecommendations = () => {
         await new Promise(resolve => setTimeout(resolve, 1500));
         fetch(`${getDomain()}/recommend`, {...HTTP_OPTIONS(PROTOCOL_METHOD.POST)})
             .then(res => {
-                return res.json();
+                if (res.ok) {
+                    return res.json();
+                } else {
+                    throw new Error('Failed to fetch server...');
+                }
             })
             .then((response: any) => {
                 dispatch({

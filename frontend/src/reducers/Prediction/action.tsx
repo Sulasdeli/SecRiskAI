@@ -28,7 +28,11 @@ export const fetchPredictions = (profile: UserProfile): any => {
         await new Promise(resolve => setTimeout(resolve, 1000));
         fetch(`${getDomain()}/predict`, {...HTTP_OPTIONS(PROTOCOL_METHOD.POST), body: JSON.stringify(profile)})
             .then(res => {
-                return res.json();
+                if (res.ok) {
+                    return res.json();
+                } else {
+                    throw new Error('Failed to fetch server...');
+                }
             })
             .then((response: any) => {
                 dispatch({

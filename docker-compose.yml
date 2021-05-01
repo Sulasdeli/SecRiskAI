@@ -4,6 +4,8 @@ services:
     build: frontend
     ports:
       - "3001:3001"
+    env_file:
+      - frontend/.env
     links:
       - middleware
   middleware:
@@ -14,6 +16,7 @@ services:
       - ml_decision_server
     environment:
       - ML_SERVER_URL=http://ml_decision_server:5000
+      - MENTOR_URL=http://protectddos:5000
     networks:
       - backend
   ml_decision_server:
@@ -34,7 +37,7 @@ services:
       - "3000:3000"
   protectddos:
     image: sulasdelii/protectddos:latest
-    ports:
+    expose:
       - "5001"
     networks:
       - backend

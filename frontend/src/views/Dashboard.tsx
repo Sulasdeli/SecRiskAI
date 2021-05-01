@@ -31,7 +31,7 @@ export const Dashboard = () => {
         if (predictions.ddos_prediction !== "") {
             dispatch(fetchRecommendations())
         }
-    }, [predictions])
+    }, [predictions, dispatch])
 
     const getClassfromRisk = (risk: string) => {
         switch (risk) {
@@ -284,7 +284,7 @@ export const Dashboard = () => {
                                 {rec_loading ? <CustomSpinner/> : (
                                     rec_error ? <h5 className="text-danger text-md-center font-italic">Failed to fetch
                                         Recommendations from MENTOR</h5> : (
-                                        recommendations.length > 0 ? (
+                                    recommendations.length > 0 ? (
                                             <Table className="table-hover table-striped">
                                                 <thead>
                                                 <tr>
@@ -300,7 +300,7 @@ export const Dashboard = () => {
                                                 {recommendations.map(service => (
                                                     <tr key={service["id"]}>
                                                         <td><img width={100}
-                                                                 src={`data:image/png;base64,${service["image"]}`}/>
+                                                                 src={`data:image/png;base64,${service["image"]}`} alt={service["providerName"]}/>
                                                         </td>
                                                         <td>{service["serviceName"]}</td>
                                                         <td>{service["description"]}</td>
@@ -319,7 +319,7 @@ export const Dashboard = () => {
                                                 ))}
                                                 </tbody>
                                             </Table>
-                                        ) : <div/>
+                                        ) : <h5 className="text-warning text-md-center font-italic">No recommendations available...</h5>
                                     )
                                 )}
                             </Card.Body>

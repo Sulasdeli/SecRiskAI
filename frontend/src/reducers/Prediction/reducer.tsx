@@ -26,7 +26,7 @@ export const predictionReducer = () => {
                     pred_loading: action.loading
                 };
             case ActionTypes.ERROR_FETCHING_PREDICTIONS:
-                return {...state, error: action.error, pred_loading: action.loading};
+                return {...state, pred_error: action.error, pred_loading: action.loading};
             default:
                 return state;
         }

@@ -21,7 +21,6 @@ WORKDIR /home/node
 COPY --from=builder /home/node/package*.json /home/node/
 COPY --from=builder /home/node/dist/ /home/node/dist/
 
-ENV PORT 8080
 EXPOSE $PORT
 
 RUN npm ci
