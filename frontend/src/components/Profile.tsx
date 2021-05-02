@@ -29,6 +29,7 @@ export enum Advisor {
 const schema = yup.object().shape({
     companyName: yup.string().required(),
     industry: yup.string().required(),
+    region: yup.string().required(),
     businessValue: yup.number().required(),
     nrEmployees: yup.number().required(),
     employeeTraining: yup.string().oneOf(Object.values(Levels)).required(),
@@ -101,8 +102,23 @@ export const Profile = () => {
                                                         isInvalid={!!errors.industry}
                                                     />
                                                     <Form.Control.Feedback type="invalid">
-                                                        Company Name is required
+                                                        Industry is required
                                                     </Form.Control.Feedback>
+                                                </Form.Group>
+                                            </Col>
+                                            <Col className="pl-1" md="3">
+                                                <Form.Group>
+                                                    <label>Region</label>
+                                                    <Form.Control as="select"
+                                                                  defaultValue={values.region}
+                                                                  name="region"
+                                                                  onChange={handleChange}>
+                                                        <option value="EUROPE">Europe</option>
+                                                        <option value="NORTH AMERICA">North America</option>
+                                                        <option value="SOUTH AMERICA">South America</option>
+                                                        <option value="ASIA">Asia</option>
+                                                        <option value="AFRICA">Africa</option>
+                                                    </Form.Control>
                                                 </Form.Group>
                                             </Col>
                                         </Row>
@@ -149,6 +165,23 @@ export const Profile = () => {
                                                         <option value="MEDIUM">Medium</option>
                                                         <option value="LOW">Low</option>
                                                     </Form.Control>
+                                                </Form.Group>
+                                            </Col>
+                                        </Row>
+                                        <Row>
+                                            <Col className="pr-1" md="3">
+                                                <Form.Group>
+                                                    <label>Cybersecurity Budget</label>
+                                                    <Form.Control
+                                                        defaultValue={values.budget}
+                                                        placeholder="Cybersecurity Budget"
+                                                        name="cyberBudget"
+                                                        type="number"
+                                                        onChange={handleChange}
+                                                        isInvalid={!!errors.budget}/>
+                                                    <Form.Control.Feedback type="invalid">
+                                                        Budget is required
+                                                    </Form.Control.Feedback>
                                                 </Form.Group>
                                             </Col>
                                         </Row>
