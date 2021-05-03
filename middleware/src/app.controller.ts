@@ -2,6 +2,7 @@ import {Body, Controller, Post} from '@nestjs/common';
 import {AppService} from './app.service';
 import {UserProfile} from "./model/UserProfile";
 import {PredictionResult} from "./model/PredictionResult";
+import {RecommendationProfile} from "./model/RecommendationProfile";
 
 @Controller()
 export class AppController {
@@ -14,8 +15,8 @@ export class AppController {
     }
 
     @Post("/recommend")
-    async recommend(): Promise<PredictionResult> {
-        let recommendation = await this.appService.recommend();
+    async recommend(@Body() recommendationProfile: RecommendationProfile): Promise<any> {
+        let recommendation = await this.appService.recommend(recommendationProfile);
         return recommendation.data.recommendedServices
     }
 }

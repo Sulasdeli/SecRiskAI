@@ -9,7 +9,7 @@ export const Header = () => {
     const mobileSidebarToggle = (e: any) => {
         e.preventDefault();
         document.documentElement.classList.toggle("nav-open");
-        var node = document.createElement("div");
+        let node = document.createElement("div");
         node.id = "bodyClick";
         node.onclick = function () {
             // @ts-ignore
@@ -36,7 +36,7 @@ export const Header = () => {
                         className="d-lg-none btn-fill d-flex justify-content-center align-items-center p-2"
                         onClick={mobileSidebarToggle}
                     >
-                        <i className="fas fa-bars"></i>
+                        <i className="fas fa-bars"/>
                     </Button>
                     <Navbar.Brand
                         href="#home"

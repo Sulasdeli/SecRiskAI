@@ -1,11 +1,17 @@
-import {ActionTypes, UpdateProfile, UserProfileState} from "./types";
+import {
+    ActionTypes,
+    UpdateProfile,
+    UpdateServiceConfiguration,
+    UserProfileState
+} from "./types";
 
 const initialState: UserProfileState = {
-    data: {
+    profile: {
         "companyName": "Company XY",
         "industry": "Healthcare",
         "region": "EUROPE",
         "budget": 50000,
+        "budgetWeight": 1,
         "investedAmount": 1077113,
         "successfulAttacks": 8,
         "failedAttacks": 29,
@@ -13,19 +19,28 @@ const initialState: UserProfileState = {
         "nrEmployees": 57879,
         "employeeTraining": "HIGH",
         "knownVulnerabilities": 6,
-        "externalAdvisor": "YES"
+        "externalAdvisor": "YES",
     },
-    updating: false
+    serviceConfiguration: {
+        "serviceType": ["PROACTIVE"],
+        "attackType": ["APPLICATION"],
+        "deploymentTime": "SECONDS",
+        "deploymentTimeWeight": 1,
+        "leasingPeriod": "MINUTES",
+        "leasingPeriodWeight": 1,
+    }
 };
 
 export const profileReducer = () => {
     return (
         state = initialState,
-        action: UpdateProfile
+        action: UpdateProfile | UpdateServiceConfiguration
     ) => {
         switch (action.type) {
             case ActionTypes.UPDATING_PROFILE:
-                return {data: action.profile, updating: action.updating};
+                return {profile: action.profile, serviceConfiguration: {...state.serviceConfiguration}};
+            case ActionTypes.UPDATING_SERVICE_CONFIGURATION:
+                return {profile: {...state.profile}, serviceConfiguration: action.serviceConfiguration};
             default:
                 return state;
         }

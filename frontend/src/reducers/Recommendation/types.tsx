@@ -4,6 +4,7 @@ export type Recommendation = {
     serviceName: string,
     providerName: string,
     description: string,
+    features: string[],
     deployment: string,
     leasingPeriod: string,
     currency: string,

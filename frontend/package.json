@@ -33,6 +33,7 @@
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.3.0",
+    "rsuite": "^4.9.4",
     "typescript": "^4.2.3",
     "web-vitals": "^1.1.1",
     "yup": "^0.32.9"

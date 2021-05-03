@@ -41,7 +41,7 @@ const schema = yup.object().shape({
 });
 
 export const Profile = () => {
-    const {data} = useAppState(s => s.profile);
+    const {profile} = useAppState(s => s.profile);
     const dispatch = useDispatch();
 
     return (
@@ -57,14 +57,13 @@ export const Profile = () => {
                                 validationSchema={schema}
                                 // @ts-ignore
                                 onSubmit={(values) => {
-                                    console.log(values as UserProfile)
                                     dispatch({
                                         type: ActionTypes.UPDATING_PROFILE,
                                         loading: true,
                                         profile: values
                                     })
                                 }}
-                                initialValues={data}>
+                                initialValues={profile}>
                                 {({
                                       handleSubmit,
                                       handleChange,
@@ -80,7 +79,7 @@ export const Profile = () => {
                                                     <Form.Control
                                                         defaultValue={values.companyName}
                                                         placeholder="Company"
-                                                        name="company"
+                                                        name="companyName"
                                                         type="text"
                                                         onChange={handleChange}
                                                         isInvalid={!!errors.companyName}
@@ -175,7 +174,7 @@ export const Profile = () => {
                                                     <Form.Control
                                                         defaultValue={values.budget}
                                                         placeholder="Cybersecurity Budget"
-                                                        name="cyberBudget"
+                                                        name="budget"
                                                         type="number"
                                                         onChange={handleChange}
                                                         isInvalid={!!errors.budget}/>

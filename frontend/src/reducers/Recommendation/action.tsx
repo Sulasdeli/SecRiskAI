@@ -3,7 +3,19 @@ import {ActionTypes, ErrorFetchingRecommendations, FetchedRecommendations, Fetch
 import {getDomain} from "../../helpers/Domain";
 import {HTTP_OPTIONS, PROTOCOL_METHOD} from "../../helpers/FetchOptions";
 
-export const fetchRecommendations = () => {
+interface RecommendationProfile {
+    region: string[],
+    serviceType: string[],
+    attackType: string[],
+    deploymentTime: string,
+    deploymentTimeWeight: number,
+    leasingPeriod: string,
+    leasingPeriodWeight: number,
+    budget: number,
+    budgetWeight: number
+}
+
+export const fetchRecommendations = (profile: RecommendationProfile) => {
     return async (
         dispatch: ThunkDispatch<{}, {}, FetchingRecommendations | FetchedRecommendations | ErrorFetchingRecommendations>
     ) => {
@@ -15,7 +27,7 @@ export const fetchRecommendations = () => {
 
         //dummy promise
         await new Promise(resolve => setTimeout(resolve, 1500));
-        fetch(`${getDomain()}/recommend`, {...HTTP_OPTIONS(PROTOCOL_METHOD.POST)})
+        fetch(`${getDomain()}/recommend`, {...HTTP_OPTIONS(PROTOCOL_METHOD.POST), body: JSON.stringify(profile)})
             .then(res => {
                 if (res.ok) {
                     return res.json();
