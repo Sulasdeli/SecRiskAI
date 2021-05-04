@@ -30,8 +30,7 @@ export const Dashboard = () => {
 
     // Fetch Risk Predictions
     useEffect(() => {
-        const {['companyName']: _, ...profileRequest} = profile; // eslint-disable-line
-        dispatch(fetchPredictions(profileRequest))
+        dispatch(fetchPredictions(profile))
     }, [profile, dispatch]);
 
     // Fetch Protection Service Recommendations
@@ -200,11 +199,11 @@ export const Dashboard = () => {
                     <Card className="card-stats">
                         <Card.Header>
                             <Card.Title>
-                                <h4>General Information</h4>
+                                <span style={{fontSize: 24}}>General Information</span>
                             </Card.Title>
                         </Card.Header>
+                        <hr/>
                         <Card.Body>
-                            <hr/>
                             <Row>
                                 <Col xs="5">
                                     <IconContext.Provider value={{color: '#506680'}}>
@@ -258,11 +257,11 @@ export const Dashboard = () => {
                     <Card className="card-stats">
                         <Card.Header>
                             <Card.Title>
-                                <h4>Overall Cyberattack Risk Prediction</h4>
+                                <span style={{fontSize: 24}}>Overall Cyberattack Risk Prediction</span>
                             </Card.Title>
                         </Card.Header>
+                        <hr/>
                         <Card.Body>
-                            <hr/>
                             {pred_loading ? <CustomSpinner/> : (
                                 pred_error ? <h5 className="text-danger text-md-center font-italic">Failed to fetch
                                     server...</h5> : (
@@ -306,11 +305,11 @@ export const Dashboard = () => {
                     <Card className="card-stats">
                         <Card.Header>
                             <Card.Title>
-                                <h4>Attack Risk Prediction</h4>
+                                <span style={{fontSize: 24}}>Attack Risk Prediction</span>
                             </Card.Title>
                         </Card.Header>
+                        <hr/>
                         <Card.Body>
-                            <hr/>
                             {pred_loading ? <CustomSpinner/> : (
                                 pred_error ? <h5 className="text-danger text-md-center font-italic">Failed to fetch
                                     server...</h5> : (
@@ -344,11 +343,11 @@ export const Dashboard = () => {
                     <Card className="card-stats">
                         <Card.Header>
                             <Card.Title>
-                                <h4>Protection Services Parameters</h4>
+                                <span style={{fontSize: 24}}>Protection Services Parameters</span>
                             </Card.Title>
                         </Card.Header>
+                        <hr/>
                         <Card.Body>
-                            <hr/>
                             <Row>
                                 <Col xs="5">
                                     <div className="icon-big text-center icon-warning">
@@ -390,7 +389,7 @@ export const Dashboard = () => {
                         <Card.Header>
                             <Row>
                                 <Col className="pr-1" md="11">
-                                    <Card.Title as="h4">Protection Services</Card.Title>
+                                    <Card.Title style={{fontSize: 24}}>Protection Services</Card.Title>
                                     <p className="card-category">
                                         Recommendations provided by MENTOR
                                     </p>
