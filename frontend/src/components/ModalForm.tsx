@@ -14,12 +14,12 @@ import {
 } from "rsuite";
 import {ActionTypes, ServiceConfiguration} from "../reducers/UserProfile/types";
 import {Col, Row} from "react-bootstrap";
-import serviceTypes from "../const/serviceTypes";
-import attackTypes from "../const/attackTypes";
-import deploymentTimes from "../const/deploymentTimes";
-import leasingPeriods from "../const/leasingPeriods";
+import {ServiceTypes} from "../const/serviceTypes";
+import {AttackTypes} from "../const/attackTypes";
+import {DeploymentTimes} from "../const/deploymentTimes";
+import {LeasingPeriods} from "../const/leasingPeriods";
 import {useDispatch} from "react-redux";
-const { StringType, NumberType, ArrayType } = Schema.Types;
+const { StringType, ArrayType } = Schema.Types;
 
 const model = Schema.Model({
   serviceType: ArrayType().isRequired('This field is required.'),
@@ -63,7 +63,7 @@ export const ModalForm = (props: ModalProps) => {
                                     style={{width: "100em"}}
                                     name="serviceType"
                                     accepter={TagPicker}
-                                    data={serviceTypes}
+                                    data={ServiceTypes}
                                 />
                             </FormGroup>
                         </Col>
@@ -77,7 +77,7 @@ export const ModalForm = (props: ModalProps) => {
                                     style={{width: "40em"}}
                                     name="attackType"
                                     accepter={TagPicker}
-                                    data={attackTypes}
+                                    data={AttackTypes}
                                 />
                             </FormGroup>
                         </Col>
@@ -90,7 +90,7 @@ export const ModalForm = (props: ModalProps) => {
                                     style={{width: "40em"}}
                                     name="deploymentTime"
                                     accepter={SelectPicker}
-                                    data={deploymentTimes}
+                                    data={DeploymentTimes}
                                 />
                             </FormGroup>
                         </Col>
@@ -117,7 +117,7 @@ export const ModalForm = (props: ModalProps) => {
                                     style={{width: "40em"}}
                                     name="leasingPeriod"
                                     accepter={SelectPicker}
-                                    data={leasingPeriods}
+                                    data={LeasingPeriods}
                                 />
                             </FormGroup>
                         </Col>

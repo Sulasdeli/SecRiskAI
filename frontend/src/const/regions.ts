@@ -1,4 +1,4 @@
-export default [
+export const Regions: { label: string, value: string }[] = [
     {
         label: 'Europe',
         value: 'EUROPE',
@@ -15,4 +15,4 @@ export default [
         label: 'Asia',
         value: 'ASIA',
     }
-    ];
+];

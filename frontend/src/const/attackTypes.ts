@@ -1,4 +1,4 @@
-export default [
+export const AttackTypes: { label: string, value: string }[] = [
     {
         label: 'Application',
         value: 'APPLICATION',

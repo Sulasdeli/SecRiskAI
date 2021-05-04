@@ -1,4 +1,4 @@
-export default [
+export const ServiceTypes: { label: string, value: string }[] = [
     {
         label: 'Reactive',
         value: 'REACTIVE',

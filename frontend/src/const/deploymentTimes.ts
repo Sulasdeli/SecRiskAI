@@ -1,4 +1,4 @@
-export default [
+export const DeploymentTimes: { label: string, value: string }[] = [
     {
         label: 'Seconds',
         value: 'SECONDS',
@@ -9,7 +9,7 @@ export default [
     }, {
         label: 'Hours',
         value: 'HOURS',
-    },{
+    }, {
         label: 'Days',
         value: 'DAYS',
     }
