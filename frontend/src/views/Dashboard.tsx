@@ -456,7 +456,7 @@ export const Dashboard = () => {
                                             ))}
                                             </tbody>
                                         </Table>
-                                    ) : <h5 className="text-warning text-md-center font-italic">No recommendations
+                                    ) : <h5 className="text-md-center font-italic">No recommendations
                                         available...</h5>
                                 )
                             )}

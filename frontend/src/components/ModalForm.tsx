@@ -10,7 +10,7 @@ import {
     Modal,
     TagPicker,
     RadioGroup,
-    Radio, SelectPicker
+    Radio, SelectPicker, Schema
 } from "rsuite";
 import {ActionTypes, ServiceConfiguration} from "../reducers/UserProfile/types";
 import {Col, Row} from "react-bootstrap";
@@ -19,6 +19,13 @@ import attackTypes from "../const/attackTypes";
 import deploymentTimes from "../const/deploymentTimes";
 import leasingPeriods from "../const/leasingPeriods";
 import {useDispatch} from "react-redux";
+const { StringType, NumberType, ArrayType } = Schema.Types;
+
+const model = Schema.Model({
+  serviceType: ArrayType().isRequired('This field is required.'),
+  ArrayType: ArrayType().isRequired('This field is required.'),
+  deploymentTime: StringType().isRequired('This field is required.'),
+});
 
 interface ModalProps {
     close: () => any,
@@ -29,6 +36,7 @@ interface ModalProps {
 export const ModalForm = (props: ModalProps) => {
     const {serviceConfiguration} = useAppState(s => s.profile);
     const [formValue, setFormValue] = useState({...serviceConfiguration});
+    const [formError, setFormError] = React.useState({});
     const dispatch = useDispatch();
 
     return (
@@ -37,7 +45,7 @@ export const ModalForm = (props: ModalProps) => {
                 <Modal.Title style={{fontSize: 24}}>Configure Service Parameters</Modal.Title>
             </Modal.Header>
             <hr/>
-            <Form onChange={formValues => {
+            <Form onCheck={setFormError} model={model} onChange={formValues => {
                 setFormValue(formValues as ServiceConfiguration);
             }} onSubmit={() => {
                 dispatch({
@@ -49,7 +57,7 @@ export const ModalForm = (props: ModalProps) => {
                 <Modal.Body style={{paddingBottom: 0}}>
                     <Row>
                         <Col md="12">
-                            <FormGroup block>
+                            <FormGroup>
                                 <ControlLabel>Service Type(s)</ControlLabel>
                                 <FormControl
                                     style={{width: "100em"}}
@@ -133,7 +141,7 @@ export const ModalForm = (props: ModalProps) => {
                 <Modal.Footer>
                     <FormGroup>
                         <ButtonToolbar>
-                            <Button color="green" className="btn-fill pull-right" type="submit">Update</Button>
+                            <Button disabled={Object.keys(formError).length !== 0} color="green" className="btn-fill pull-right" type="submit">Update</Button>
                         </ButtonToolbar>
                     </FormGroup>
                 </Modal.Footer>
