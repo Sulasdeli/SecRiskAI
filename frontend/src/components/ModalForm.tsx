@@ -23,8 +23,9 @@ const { StringType, ArrayType } = Schema.Types;
 
 const model = Schema.Model({
   serviceType: ArrayType().isRequired('This field is required.'),
-  ArrayType: ArrayType().isRequired('This field is required.'),
+  attackType: ArrayType().isRequired('This field is required.'),
   deploymentTime: StringType().isRequired('This field is required.'),
+  leasingPeriod: StringType().isRequired('This field is required.'),
 });
 
 interface ModalProps {
@@ -69,7 +70,7 @@ export const ModalForm = (props: ModalProps) => {
                         </Col>
                     </Row>
 
-                    <Row style={{marginTop: 20}}>
+                    <Row style={{marginTop: 25}}>
                         <Col md="12">
                             <FormGroup>
                                 <ControlLabel>Attack Type(s)</ControlLabel>
@@ -82,7 +83,7 @@ export const ModalForm = (props: ModalProps) => {
                             </FormGroup>
                         </Col>
                     </Row>
-                    <Row style={{marginTop: 20}}>
+                    <Row style={{marginTop: 25}}>
                         <Col md="7">
                             <FormGroup>
                                 <ControlLabel>Deployment Time</ControlLabel>
@@ -109,7 +110,7 @@ export const ModalForm = (props: ModalProps) => {
                             </FormGroup>
                         </Col>
                     </Row>
-                    <Row style={{marginTop: 20, marginBottom: 30}}>
+                    <Row style={{marginTop: 25, marginBottom: 30}}>
                         <Col md="7">
                             <FormGroup>
                                 <ControlLabel>Leasing Period</ControlLabel>
