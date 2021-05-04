@@ -10,10 +10,9 @@ import {
     Modal,
     TagPicker,
     RadioGroup,
-    Radio, SelectPicker, Schema
+    Radio, SelectPicker, Row, Col, Schema
 } from "rsuite";
 import {ActionTypes, ServiceConfiguration} from "../reducers/UserProfile/types";
-import {Col, Row} from "react-bootstrap";
 import {ServiceTypes} from "../const/serviceTypes";
 import {AttackTypes} from "../const/attackTypes";
 import {DeploymentTimes} from "../const/deploymentTimes";
@@ -57,11 +56,11 @@ export const ModalForm = (props: ModalProps) => {
             }} formValue={formValue}>
                 <Modal.Body style={{paddingBottom: 0}}>
                     <Row>
-                        <Col md="12">
+                        <Col md={24}>
                             <FormGroup>
                                 <ControlLabel>Service Type(s)</ControlLabel>
                                 <FormControl
-                                    style={{width: "100em"}}
+                                    style={{width: "40em"}}
                                     name="serviceType"
                                     accepter={TagPicker}
                                     data={ServiceTypes}
@@ -71,7 +70,7 @@ export const ModalForm = (props: ModalProps) => {
                     </Row>
 
                     <Row style={{marginTop: 25}}>
-                        <Col md="12">
+                        <Col md={24}>
                             <FormGroup>
                                 <ControlLabel>Attack Type(s)</ControlLabel>
                                 <FormControl
@@ -84,7 +83,7 @@ export const ModalForm = (props: ModalProps) => {
                         </Col>
                     </Row>
                     <Row style={{marginTop: 25}}>
-                        <Col md="7">
+                        <Col md={16}>
                             <FormGroup>
                                 <ControlLabel>Deployment Time</ControlLabel>
                                 <FormControl
@@ -95,7 +94,7 @@ export const ModalForm = (props: ModalProps) => {
                                 />
                             </FormGroup>
                         </Col>
-                        <Col md="5">
+                        <Col md={8}>
                             <FormGroup>
                                 <ControlLabel>Priority</ControlLabel>
                                 <FormControl
@@ -111,7 +110,7 @@ export const ModalForm = (props: ModalProps) => {
                         </Col>
                     </Row>
                     <Row style={{marginTop: 25, marginBottom: 30}}>
-                        <Col md="7">
+                        <Col md={16}>
                             <FormGroup>
                                 <ControlLabel>Leasing Period</ControlLabel>
                                 <FormControl
@@ -122,7 +121,7 @@ export const ModalForm = (props: ModalProps) => {
                                 />
                             </FormGroup>
                         </Col>
-                        <Col md="5">
+                        <Col md={8}>
                             <FormGroup>
                                 <ControlLabel>Priority</ControlLabel>
                                 <FormControl

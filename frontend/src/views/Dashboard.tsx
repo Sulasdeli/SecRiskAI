@@ -20,6 +20,7 @@ import {IconContext} from "react-icons";
 import {ModalForm} from "../components/ModalForm";
 import {toast} from "react-toastify";
 import {Priorities} from "../const/priorities"
+import {capitalize} from "../helpers/Capitalize";
 
 export const Dashboard = () => {
     const {profile, serviceConfiguration} = useAppState(s => s.profile);
@@ -37,7 +38,7 @@ export const Dashboard = () => {
     useEffect(() => {
         if (predictions.ddos_prediction !== "") {
             dispatch(fetchRecommendations({
-                "region": [profile.region],
+                "region": profile.region,
                 "budget": profile.budget,
                 "budgetWeight": profile.budgetWeight,
                 ...serviceConfiguration
@@ -127,7 +128,7 @@ export const Dashboard = () => {
                                     </div>
                                     <div className="numbers">
                                         <p className="card-category">Training Level</p>
-                                        <Card.Title as="h4">{profile.employeeTraining}</Card.Title>
+                                        <Card.Title as="h4">{capitalize(profile.employeeTraining)}</Card.Title>
                                     </div>
                                 </Col>
                             </Row>
@@ -182,7 +183,7 @@ export const Dashboard = () => {
 
                                     <div className="numbers">
                                         <p className="card-category">External Cybersecurity Advisor</p>
-                                        <Card.Title as="h4">{profile.externalAdvisor}</Card.Title>
+                                        <Card.Title as="h4">{capitalize(profile.externalAdvisor)}</Card.Title>
                                     </div>
                                 </Col>
                             </Row>
@@ -228,7 +229,7 @@ export const Dashboard = () => {
                                     </div>
                                     <div className="numbers">
                                         <p className="card-category">Operational Region</p>
-                                        <Card.Title as="h4">{profile.region}</Card.Title>
+                                        <Card.Title as="h4">{profile.region.map(capitalize).join(", ")}</Card.Title>
                                     </div>
                                     <div className="numbers">
                                         <p className="card-category">Available Budget -
@@ -274,21 +275,21 @@ export const Dashboard = () => {
                                         <Col xs="7">
                                             <div className="numbers">
                                                 <p className="card-category">K-Nearest Neighbours</p>
-                                                <Card.Title as="h4">{predictions.KNN_prediction}</Card.Title>
+                                                <Card.Title as="h4">{capitalize(predictions.KNN_prediction)}</Card.Title>
                                             </div>
 
                                             <div className="numbers">
                                                 <p className="card-category">Multi-Layer Perceptron</p>
-                                                <Card.Title as="h4">{predictions.MLP_prediction}</Card.Title>
+                                                <Card.Title as="h4">{capitalize(predictions.MLP_prediction)}</Card.Title>
                                             </div>
 
                                             <div className="numbers">
                                                 <p className="card-category">Support Vector Machine</p>
-                                                <Card.Title as="h4">{predictions.SVM_prediction}</Card.Title>
+                                                <Card.Title as="h4">{capitalize(predictions.SVM_prediction)}</Card.Title>
                                             </div>
                                             <div className="numbers">
                                                 <p className="card-category">Decision Tree</p>
-                                                <Card.Title as="h4">{predictions.DTree_prediction}</Card.Title>
+                                                <Card.Title as="h4">{capitalize(predictions.DTree_prediction)}</Card.Title>
                                             </div>
                                         </Col>
                                     </Row>
@@ -326,7 +327,7 @@ export const Dashboard = () => {
                                         <Col xs="7">
                                             <div className="numbers">
                                                 <p className="card-category">Distributed Denial-of-Service</p>
-                                                <Card.Title as="h4">{predictions.MLP_prediction}</Card.Title>
+                                                <Card.Title as="h4">{capitalize(predictions.MLP_prediction)}</Card.Title>
                                             </div>
                                         </Col>
                                     </Row>
@@ -351,28 +352,28 @@ export const Dashboard = () => {
                             <Row>
                                 <Col xs="5">
                                     <div className="icon-big text-center icon-warning">
-                                        <i className="nc-icon nc-preferences-circle-rotate"
+                                        <i className="nc-icon nc-settings-gear-64"
                                            style={{color: "#09637f"}}/>
                                     </div>
                                 </Col>
                                 <Col xs="7">
                                     <div className="numbers">
-                                        <p className="card-category">Attack Type(s)</p>
-                                        <Card.Title as="h4">{serviceConfiguration.attackType.join(", ")}</Card.Title>
+                                        <p className="card-category">Attack Type(s) Coverage</p>
+                                        <Card.Title as="h4">{serviceConfiguration.attackType.map(capitalize).join(", ")}</Card.Title>
                                     </div>
                                     <div className="numbers">
                                         <p className="card-category">Service Type(s)</p>
-                                        <Card.Title as="h4">{serviceConfiguration.serviceType.join(", ")}</Card.Title>
+                                        <Card.Title as="h4">{serviceConfiguration.serviceType.map(capitalize).join(", ")}</Card.Title>
                                     </div>
                                     <div className="numbers">
                                         <p className="card-category">Deployment Type -
                                             Priority: {Priorities[serviceConfiguration.deploymentTimeWeight]}</p>
-                                        <Card.Title as="h4">{serviceConfiguration.deploymentTime}</Card.Title>
+                                        <Card.Title as="h4">{capitalize(serviceConfiguration.deploymentTime)}</Card.Title>
                                     </div>
                                     <div className="numbers">
                                         <p className="card-category">Leasing Period -
                                             Priority: {Priorities[serviceConfiguration.leasingPeriodWeight]}</p>
-                                        <Card.Title as="h4">{serviceConfiguration.leasingPeriod}</Card.Title>
+                                        <Card.Title as="h4">{capitalize(serviceConfiguration.leasingPeriod)}</Card.Title>
                                     </div>
 
                                 </Col>
@@ -440,9 +441,9 @@ export const Dashboard = () => {
                                                     </td>
                                                     <td>{service["serviceName"]}</td>
                                                     <td>{service["description"]}</td>
-                                                    <td>{service.features.join(", ")}</td>
-                                                    <td>{service["deployment"]}</td>
-                                                    <td>{service["leasingPeriod"]}</td>
+                                                    <td>{service.features.map(capitalize).join(", ")}</td>
+                                                    <td>{capitalize(service["deployment"])}</td>
+                                                    <td>{capitalize(service["leasingPeriod"])}</td>
                                                     <td>
                                                         <NumberFormat
                                                             value={service["price"]}

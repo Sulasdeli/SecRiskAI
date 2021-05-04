@@ -21,7 +21,7 @@ const dashboardRoutes: route[] = [
     },
     {
         path: "/profile",
-        name: "User Profile",
+        name: "Profile",
         icon: "nc-icon nc-circle-09",
         component: Profile,
         layout: "/user"

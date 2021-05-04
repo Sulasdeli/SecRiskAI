@@ -1,7 +1,7 @@
 export type UserProfile = {
     companyName: string,
     industry: string,
-    region: string,
+    region: string[],
     budget: number,
     budgetWeight: number,
     investedAmount: number,

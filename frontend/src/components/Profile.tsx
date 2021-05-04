@@ -1,280 +1,272 @@
-import React from "react";
+import React, {useState} from "react";
 
-import {
-    Button,
-    Card,
-    Form,
-    Container,
-    Row,
-    Col,
-} from "react-bootstrap";
 import useAppState from "../hooks/use-app-state";
-import {Formik} from "formik";
-import * as yup from 'yup';
 import {useDispatch} from "react-redux";
-import {ActionTypes, UserProfile} from "../reducers/UserProfile/types";
 import {toast} from "react-toastify";
+import NumberFormat from "react-number-format";
+import {
+    Row,
+    Button,
+    ControlLabel,
+    Form,
+    FormControl,
+    FormGroup,
+    SelectPicker,
+    TagPicker,
+    Col,
+    Schema, RadioGroup, Radio, Icon, Grid, HelpBlock
+} from "rsuite";
+import {Regions} from "../const/regions";
+import {ExternalAdvisor} from "../const/externalAdvisor";
+import Card from "react-bootstrap/Card";
+import {ActionTypes, UserProfile} from "../reducers/UserProfile/types";
 
-export enum Levels {
-    "High" = "HIGH",
-    "Medium" = "MEDIUM",
-    "Low" = "LOW"
-}
+const {StringType, NumberType, ArrayType} = Schema.Types;
 
-export enum Advisor {
-    "Yes" = "YES",
-    "No" = "NO",
-}
-
-const schema = yup.object().shape({
-    companyName: yup.string().required(),
-    industry: yup.string().required(),
-    region: yup.string().required(),
-    businessValue: yup.number().required(),
-    nrEmployees: yup.number().required(),
-    employeeTraining: yup.string().oneOf(Object.values(Levels)).required(),
-    investedAmount: yup.number().required(),
-    knownVulnerabilities: yup.number().required(),
-    externalAdvisor: yup.string().oneOf(Object.values(Advisor)).required(),
-    successfulAttacks: yup.number().required(),
-    failedAttacks: yup.number().required(),
+const model = Schema.Model({
+    companyName: StringType().isRequired('This field is required.'),
+    industry: StringType().isRequired('This field is required.'),
+    region: ArrayType().isRequired('This field is required.'),
+    businessValue: NumberType(),
+    nrEmployees: NumberType(),
+    budget: NumberType(),
+    investedAmount: NumberType(),
+    knownVulnerabilities: NumberType(),
+    externalAdvisor: StringType().isRequired('This field is required.'),
+    successfulAttacks: NumberType(),
+    failedAttacks: NumberType(),
 });
+
+class AmountInput extends React.Component<{ onChange: any }> {
+    render() {
+        let {onChange, ...rest} = this.props;
+        return (
+            <NumberFormat
+                {...rest}
+                className="rs-input"
+                displayType={'input'}
+                onValueChange={(values) => {
+                    const {value} = values;
+                    onChange(parseInt(value))
+                }}
+                thousandSeparator={true}/>
+        );
+    }
+}
+
+class AmountField extends React.PureComponent {
+    render() {
+        // @ts-ignore
+        const {name, message, label, accepter, error, iconName, ...props} = this.props;
+        return (
+            <FormGroup className={error ? 'has-error' : ''}>
+                <ControlLabel>{label}</ControlLabel>
+                <div className="rs-input-group rs-input-number" style={{width: "100%"}}>
+                    <span className="rs-input-group-addon"><Icon icon={iconName}/></span>
+                    <FormControl
+                        name={name}
+                        accepter={accepter}
+                        errorMessage={error}
+                        {...props}/>
+                </div>
+                <HelpBlock>{message}</HelpBlock>
+            </FormGroup>
+        );
+    }
+}
 
 export const Profile = () => {
     const {profile} = useAppState(s => s.profile);
+    const [formValue, setFormValue] = useState({...profile});
+    const [formError, setFormError] = React.useState({});
+
     const dispatch = useDispatch();
 
     return (
-        <Container fluid>
+        <Grid fluid>
             <Row>
-                <Col md="7">
+                <Col md={8}>
                     <Card>
                         <Card.Header>
-                            <Card.Title as="h3">Edit Profile</Card.Title>
+                            <Card.Title as="h3">General Information</Card.Title>
                         </Card.Header>
                         <Card.Body>
-                            <Formik
-                                validationSchema={schema}
-                                // @ts-ignore
-                                onSubmit={(values) => {
-                                    dispatch({
-                                        type: ActionTypes.UPDATING_PROFILE,
-                                        loading: true,
-                                        profile: values
-                                    })
-                                }}
-                                initialValues={profile}>
-                                {({
-                                      handleSubmit,
-                                      handleChange,
-                                      values,
-                                      errors,
-                                      isValid
-                                  }) => (
-                                    <Form noValidate onSubmit={handleSubmit}>
-                                        <Row>
-                                            <Col className="pr-1" md="3">
-                                                <Form.Group>
-                                                    <label>Company</label>
-                                                    <Form.Control
-                                                        defaultValue={values.companyName}
-                                                        placeholder="Company"
-                                                        name="companyName"
-                                                        type="text"
-                                                        onChange={handleChange}
-                                                        isInvalid={!!errors.companyName}
-                                                    />
-                                                    <Form.Control.Feedback type="invalid">
-                                                        Company Name is required
-                                                    </Form.Control.Feedback>
-                                                </Form.Group>
-                                            </Col>
-                                            <Col className="pr-1" md="3">
-                                                <Form.Group>
-                                                    <label>Industry</label>
-                                                    <Form.Control
-                                                        defaultValue={values.industry}
-                                                        placeholder="Industry"
-                                                        name="industry"
-                                                        type="text"
-                                                        onChange={handleChange}
-                                                        isInvalid={!!errors.industry}
-                                                    />
-                                                    <Form.Control.Feedback type="invalid">
-                                                        Industry is required
-                                                    </Form.Control.Feedback>
-                                                </Form.Group>
-                                            </Col>
-                                            <Col className="pl-1" md="3">
-                                                <Form.Group>
-                                                    <label>Region</label>
-                                                    <Form.Control as="select"
-                                                                  defaultValue={values.region}
-                                                                  name="region"
-                                                                  onChange={handleChange}>
-                                                        <option value="EUROPE">Europe</option>
-                                                        <option value="NORTH AMERICA">North America</option>
-                                                        <option value="SOUTH AMERICA">South America</option>
-                                                        <option value="ASIA">Asia</option>
-                                                        <option value="AFRICA">Africa</option>
-                                                    </Form.Control>
-                                                </Form.Group>
-                                            </Col>
-                                        </Row>
-                                        <h3>General Information</h3>
-                                        <Row>
-                                            <Col className="pr-1" md="3">
-                                                <Form.Group>
-                                                    <label>Business Value</label>
-                                                    <Form.Control
-                                                        defaultValue={values.businessValue}
-                                                        placeholder="Business Value"
-                                                        name="businessValue"
-                                                        type="number"
-                                                        onChange={handleChange}
-                                                        isInvalid={!!errors.businessValue}/>
-                                                    <Form.Control.Feedback type="invalid">
-                                                        Business Value is required
-                                                    </Form.Control.Feedback>
-                                                </Form.Group>
-                                            </Col>
-                                            <Col className="pr-1" md="3">
-                                                <Form.Group>
-                                                    <label>Number of Employees</label>
-                                                    <Form.Control
-                                                        defaultValue={values.nrEmployees}
-                                                        placeholder="Number of Employees"
-                                                        name="nrEmployees"
-                                                        type="number"
-                                                        onChange={handleChange}
-                                                        isInvalid={!!errors.nrEmployees}/>
-                                                    <Form.Control.Feedback type="invalid">
-                                                        Number of Employees is required
-                                                    </Form.Control.Feedback>
-                                                </Form.Group>
-                                            </Col>
-                                            <Col className="pl-1" md="3">
-                                                <Form.Group>
-                                                    <label>Employee Training Level</label>
-                                                    <Form.Control as="select"
-                                                                  defaultValue={values.employeeTraining}
-                                                                  name="employeeTraining"
-                                                                  onChange={handleChange}>
-                                                        <option value="HIGH">High</option>
-                                                        <option value="MEDIUM">Medium</option>
-                                                        <option value="LOW">Low</option>
-                                                    </Form.Control>
-                                                </Form.Group>
-                                            </Col>
-                                        </Row>
-                                        <Row>
-                                            <Col className="pr-1" md="3">
-                                                <Form.Group>
-                                                    <label>Cybersecurity Budget</label>
-                                                    <Form.Control
-                                                        defaultValue={values.budget}
-                                                        placeholder="Cybersecurity Budget"
-                                                        name="budget"
-                                                        type="number"
-                                                        onChange={handleChange}
-                                                        isInvalid={!!errors.budget}/>
-                                                    <Form.Control.Feedback type="invalid">
-                                                        Budget is required
-                                                    </Form.Control.Feedback>
-                                                </Form.Group>
-                                            </Col>
-                                        </Row>
-                                        <h3>Technical Details</h3>
-                                        <Row>
-                                            <Col className="pr-1" md="3">
-                                                <Form.Group>
-                                                    <label>Invested Amount</label>
-                                                    <Form.Control
-                                                        defaultValue={values.investedAmount}
-                                                        name="investedAmount"
-                                                        placeholder="Invested Amount"
-                                                        type="number"
-                                                        onChange={handleChange}
-                                                        isInvalid={!!errors.investedAmount}/>
-                                                    <Form.Control.Feedback type="invalid">
-                                                        Invested Amount is required
-                                                    </Form.Control.Feedback>
-                                                </Form.Group>
-                                            </Col>
-                                            <Col className="px-1" md="3">
-                                                <Form.Group>
-                                                    <label>Known Vulnerabilities</label>
-                                                    <Form.Control
-                                                        defaultValue={values.knownVulnerabilities}
-                                                        name="knownVulnerabilities"
-                                                        placeholder="Known Vulnerabilities"
-                                                        type="number"
-                                                        onChange={handleChange}
-                                                        isInvalid={!!errors.knownVulnerabilities}/>
-                                                    <Form.Control.Feedback type="invalid">
-                                                        Known Vulnerabilities is required
-                                                    </Form.Control.Feedback>
-                                                </Form.Group>
-                                            </Col>
-                                            <Col className="pl-1" md="3">
-                                                <Form.Group>
-                                                    <label>External Advisor</label>
-                                                    <Form.Control as="select"
-                                                                  defaultValue={values.externalAdvisor}
-                                                                  name="externalAdvisor"
-                                                                  onChange={handleChange}>
-                                                        <option value="YES">Yes</option>
-                                                        <option value="NO">No</option>
-                                                    </Form.Control>
-                                                </Form.Group>
-                                            </Col>
-                                        </Row>
-                                        <Row>
-                                            <Col className="pr-1" md="4">
-                                                <Form.Group>
-                                                    <label>Successful Past Attacks</label>
-                                                    <Form.Control
-                                                        defaultValue={values.successfulAttacks}
-                                                        name="successfulAttacks"
-                                                        placeholder="Successful Past Attacks"
-                                                        type="number"
-                                                        onChange={handleChange}
-                                                        isInvalid={!!errors.successfulAttacks}/>
-                                                    <Form.Control.Feedback type="invalid">
-                                                        Successful Attacks is required
-                                                    </Form.Control.Feedback>
-                                                </Form.Group>
-                                            </Col>
-                                            <Col className="px-1" md="4">
-                                                <Form.Group>
-                                                    <label>Failed Past Attacks</label>
-                                                    <Form.Control
-                                                        defaultValue={values.failedAttacks}
-                                                        name="failedAttacks"
-                                                        placeholder="Failed Past Attacks"
-                                                        type="number"
-                                                        onChange={handleChange}
-                                                        isInvalid={!!errors.failedAttacks}
-                                                    />
-                                                    <Form.Control.Feedback type="invalid">
-                                                        Failed Attacks is required
-                                                    </Form.Control.Feedback>
-                                                </Form.Group>
-                                            </Col>
-                                        </Row>
-                                        <Button
-                                            disabled={!isValid}
-                                            onClick={() => toast.success("Profile updated successfully!")}
-                                            className="btn-fill pull-right"
-                                            type="submit"
-                                            variant="info">Update</Button>
-                                    </Form>
-                                )}
-                            </Formik>
+                            <hr/>
+                            <Form onCheck={setFormError} model={model} formValue={formValue} onChange={formValues => {
+                                setFormValue(formValues as UserProfile);
+                            }} onSubmit={() => {
+                                dispatch({
+                                    type: ActionTypes.UPDATING_PROFILE,
+                                    profile: formValue
+                                })
+                            }}>
+                                <Row style={{marginTop: 22}}>
+                                    <Col md={12}>
+                                        <FormGroup>
+                                            <ControlLabel>Company</ControlLabel>
+                                            <div className="rs-input-group rs-input-number">
+                                                <span className="rs-input-group-addon"><Icon icon="building-o"/></span>
+                                                <FormControl
+                                                    name="companyName"
+                                                />
+                                            </div>
+                                        </FormGroup>
+                                    </Col>
+                                    <Col md={8}>
+                                        <FormGroup>
+                                            <ControlLabel>Industry</ControlLabel>
+                                            <FormControl style={{width: "14em"}} name="industry"/>
+                                        </FormGroup>
+                                    </Col>
+                                </Row>
+                                <Row style={{marginTop: 22}}>
+                                    <Col md={12}>
+                                        <FormGroup>
+                                            <ControlLabel>Operational Region(s)</ControlLabel>
+                                            <FormControl
+                                                style={{width: "26em"}}
+                                                name="region"
+                                                accepter={TagPicker}
+                                                data={Regions}
+                                            />
+                                        </FormGroup>
+                                    </Col>
+                                    <Col md={8}>
+                                        <AmountField
+                                            // @ts-ignore
+                                            name="businessValue"
+                                            label="Business Value (Revenue)"
+                                            accepter={AmountInput}
+                                            // @ts-ignore
+                                            error={formError.businessValue}
+                                            iconName="usd"
+                                        />
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col md={8}>
+                                        <AmountField
+                                            // @ts-ignore
+                                            name="nrEmployees"
+                                            label="Number of Employees"
+                                            accepter={AmountInput}
+                                            // @ts-ignore
+                                            error={formError.nrEmployees}
+                                            iconName="group"
+                                        />
+                                    </Col>
+                                    <Col md={8}>
+                                        <FormGroup>
+                                            <ControlLabel>Employee Training</ControlLabel>
+                                            <FormControl
+                                                inline appearance="picker"
+                                                name="employeeTraining"
+                                                accepter={RadioGroup}>
+                                                <Radio value={"LOW"}><span style={{fontSize: 12}}>Low</span></Radio>
+                                                <Radio value={"MEDIUM"}><span style={{fontSize: 12}}>Medium</span></Radio>
+                                                <Radio value={"HIGH"}><span style={{fontSize: 12}}>High</span></Radio>
+                                            </FormControl>
+                                        </FormGroup>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col md={8}>
+                                        <AmountField
+                                            // @ts-ignore
+                                            name="budget"
+                                            label="Cybersecurity Budget"
+                                            accepter={AmountInput}
+                                            // @ts-ignore
+                                            error={formError.budget}
+                                            iconName="usd"
+                                        />
+                                    </Col>
+                                    <Col md={8}>
+                                        <FormGroup>
+                                            <ControlLabel>Priority</ControlLabel>
+                                            <FormControl
+                                                inline appearance="picker"
+                                                name="budgetWeight"
+                                                accepter={RadioGroup}
+                                            >
+                                                <Radio value={1}><span style={{fontSize: 12}}>Low</span></Radio>
+                                                <Radio value={2}><span style={{fontSize: 12}}>Medium</span></Radio>
+                                                <Radio value={3}><span style={{fontSize: 12}}>High</span></Radio>
+                                            </FormControl>
+                                        </FormGroup>
+                                    </Col>
+                                </Row>
+                                <h3>Technical Details</h3>
+                                <Row style={{marginTop: 22}}>
+                                    <Col md={10}>
+                                        <AmountField
+                                            // @ts-ignore
+                                            name="investedAmount"
+                                            label="Invested Amount in Cybersecurity"
+                                            accepter={AmountInput}
+                                            // @ts-ignore
+                                            error={formError.investedAmount}
+                                            iconName="usd"
+                                        />
+                                    </Col>
+                                    <Col md={8}>
+                                        <AmountField
+                                            // @ts-ignore
+                                            name="knownVulnerabilities"
+                                            label="Known Vulnerabilities"
+                                            accepter={AmountInput}
+                                            // @ts-ignore
+                                            error={formError.knownVulnerabilities}
+                                            iconName="crosshairs"
+                                        />
+
+                                    </Col>
+                                    <Col md={6}>
+                                        <FormGroup>
+                                            <ControlLabel>External Advisor</ControlLabel>
+                                            <FormControl
+                                                style={{width: "21.5em"}}
+                                                name="externalAdvisor"
+                                                accepter={SelectPicker}
+                                                searchable={false}
+                                                data={ExternalAdvisor}
+                                            />
+                                        </FormGroup>
+                                    </Col>
+                                </Row>
+                                <Row style={{marginTop: 5}}>
+                                    <Col md={8}>
+                                        <AmountField
+                                            // @ts-ignore
+                                            name="successfulAttacks"
+                                            label="Successful Past Attacks"
+                                            accepter={AmountInput}
+                                            // @ts-ignore
+                                            error={formError.successfulAttacks}
+                                            iconName="user-secret"
+                                        />
+                                    </Col>
+                                    <Col md={8}>
+                                        <AmountField
+                                            // @ts-ignore
+                                            name="failedAttacks"
+                                            label="Failed Past Attacks"
+                                            accepter={AmountInput}
+                                            // @ts-ignore
+                                            error={formError.failedAttacks}
+                                            iconName="shield"
+                                        />
+                                    </Col>
+                                </Row>
+                                <hr/>
+                                <Button disabled={Object.keys(formError).length !== 0}
+                                        onClick={() => toast.success("Profile updated successfully!")} color="green"
+                                        className="btn-fill pull-right" type="submit">Update</Button>
+                            </Form>
                         </Card.Body>
                     </Card>
                 </Col>
             </Row>
-        </Container>
+        </Grid>
     );
 }
