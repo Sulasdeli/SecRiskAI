@@ -227,7 +227,7 @@ export const Dashboard = () => {
                                     </div>
                                     <div className="numbers">
                                         <p className="card-category">Industry</p>
-                                        <Card.Title as="h4">{profile.industry}</Card.Title>
+                                        <Card.Title as="h4">{capitalize(profile.industry)}</Card.Title>
                                     </div>
                                     <div className="numbers">
                                         <p className="card-category">Operational Region</p>
