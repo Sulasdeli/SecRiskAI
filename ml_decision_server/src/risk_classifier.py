@@ -4,9 +4,6 @@ from bentoml import env, artifacts, api, BentoService
 from bentoml.frameworks.sklearn import SklearnModelArtifact
 from bentoml.adapters import JsonInput
 
-columns = ["invested_amount", "successful_attacks", "failed_attacks", "business_value", "nr_employees",
-           "employee_training", "known_vulnerabilities", "external_advisor"]
-
 prediction_result_mapping = {0: "LOW", 1: "MEDIUM", 2: "HIGH"}
 
 
@@ -15,7 +12,9 @@ prediction_result_mapping = {0: "LOW", 1: "MEDIUM", 2: "HIGH"}
             SklearnModelArtifact('mlp_model'),
             SklearnModelArtifact('svm_model'),
             SklearnModelArtifact('tree_model'),
-            SklearnModelArtifact('scaler')])
+            SklearnModelArtifact('scaler'),
+            SklearnModelArtifact('ddos_mlp_model'),
+            SklearnModelArtifact('ddos_scaler')])
 class RiskClassifier(BentoService):
     """
     A prediction service exposing Scikit-learn models for Cybersecurity Risk Assessment
@@ -29,11 +28,19 @@ class RiskClassifier(BentoService):
         inference API function input
         """
 
-        df = pd.DataFrame(body, index=[0], columns=columns)
-        normalized_df = self.artifacts.scaler.transform(df)
+        cyberattack_df = pd.DataFrame(eval(body['cyberattackPredictionProfile']))
+        normalized_cyberattack_df = self.artifacts.scaler.transform(cyberattack_df)
+
+        normalized_ddos_df = self.artifacts.ddos_scaler.transform(
+            pd.DataFrame(eval(body['ddosPredictionProfile'])))
+
         return {
-            "KNN_prediction": prediction_result_mapping[self.artifacts.knn_model.predict(normalized_df)[0]],
-            "MLP_prediction": prediction_result_mapping[self.artifacts.mlp_model.predict(normalized_df)[0]],
-            "SVM_prediction": prediction_result_mapping[self.artifacts.svm_model.predict(normalized_df)[0]],
-            "DTree_prediction": prediction_result_mapping[self.artifacts.tree_model.predict(df)[0]]
+            "overall_risk_prediction": {
+                "knn": prediction_result_mapping[self.artifacts.knn_model.predict(normalized_cyberattack_df)[0]],
+                "mlp": prediction_result_mapping[self.artifacts.mlp_model.predict(normalized_cyberattack_df)[0]],
+                "svm": prediction_result_mapping[self.artifacts.svm_model.predict(normalized_cyberattack_df)[0]],
+                "dtree": prediction_result_mapping[self.artifacts.tree_model.predict(cyberattack_df)[0]]
+            },
+            "ddos_risk_prediction": prediction_result_mapping[
+                self.artifacts.ddos_mlp_model.predict(normalized_ddos_df)[0]]
         }

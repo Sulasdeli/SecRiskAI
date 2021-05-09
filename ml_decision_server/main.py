@@ -6,6 +6,7 @@ if __name__ == "__main__":
     risk_classifier_service = RiskClassifier()
 
     # Pack the newly trained model artifact
+    # Overall Cyberattack Prediction Artifacts
     risk_classifier_service.pack('knn_model', load('src/models/KNN_classifier.joblib'),
                                  metadata={
                                      'accuracy': '96.59%',
@@ -37,6 +38,20 @@ if __name__ == "__main__":
     risk_classifier_service.pack('scaler', load('src/scaler/MinMaxScaler.joblib'),
                                  metadata={
                                      'type': 'Min Max Scaler'
+                                 })
+
+    # DDoS Prediction Artifacts
+    risk_classifier_service.pack('ddos_mlp_model', load('src/models/MLP_ddos_classifier.joblib'),
+                                 metadata={
+                                     'accuracy': '90.03%',
+                                     'activation': 'logistic',
+                                     'hidden_layer_sizes': '(5, 2)',
+                                     'learning_rate': 'constant',
+                                     'solver': 'lbfgs'
+                                 })
+    risk_classifier_service.pack('ddos_scaler', load('src/scaler/MinMaxScaler_ddos.joblib'),
+                                 metadata={
+                                     'type': 'Min Max Scaler for DDoS Prediction'
                                  })
 
     # Save the prediction service to disk for model serving

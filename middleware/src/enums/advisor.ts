@@ -1,4 +1,4 @@
 export enum Advisor {
-  'NO',
-  'YES'
+    'NO',
+    'YES'
 }

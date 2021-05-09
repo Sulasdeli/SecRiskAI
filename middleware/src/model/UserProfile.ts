@@ -1,8 +1,19 @@
 import {IsEnum, IsInt, IsNotEmpty} from 'class-validator';
 import {Levels} from "../enums/levels";
 import {Advisor} from "../enums/advisor";
+import {Regions} from "../enums/regions";
+import {Industry} from "../enums/industry";
 
 export class UserProfile {
+
+    @IsNotEmpty()
+    @IsEnum(Regions)
+    region: string;
+
+    @IsNotEmpty()
+    @IsEnum(Industry)
+    industry: string;
+
     @IsNotEmpty()
     @IsInt()
     investedAmount: number;
