@@ -36,9 +36,9 @@ export const Dashboard = () => {
 
     // Fetch Protection Service Recommendations
     useEffect(() => {
-        if (predictions.ddos_prediction !== "") {
+        if (predictions.ddos_risk_prediction !== "") {
             dispatch(fetchRecommendations({
-                "region": profile.region,
+                "region": [profile.region],
                 "budget": profile.budget,
                 "budgetWeight": profile.budgetWeight,
                 ...serviceConfiguration
@@ -57,6 +57,8 @@ export const Dashboard = () => {
         }
 
     }
+
+    let {knn, mlp, svm, dtree} = predictions.overall_risk_prediction
 
     return (
         <Container fluid>
@@ -229,7 +231,7 @@ export const Dashboard = () => {
                                     </div>
                                     <div className="numbers">
                                         <p className="card-category">Operational Region</p>
-                                        <Card.Title as="h4">{profile.region.map(capitalize).join(", ")}</Card.Title>
+                                        <Card.Title as="h4">{capitalize(profile.region)}</Card.Title>
                                     </div>
                                     <div className="numbers">
                                         <p className="card-category">Available Budget -
@@ -275,21 +277,21 @@ export const Dashboard = () => {
                                         <Col xs="7">
                                             <div className="numbers">
                                                 <p className="card-category">K-Nearest Neighbours</p>
-                                                <Card.Title as="h4">{capitalize(predictions.KNN_prediction)}</Card.Title>
+                                                <Card.Title as="h4">{capitalize(knn)}</Card.Title>
                                             </div>
 
                                             <div className="numbers">
                                                 <p className="card-category">Multi-Layer Perceptron</p>
-                                                <Card.Title as="h4">{capitalize(predictions.MLP_prediction)}</Card.Title>
+                                                <Card.Title as="h4">{capitalize(mlp)}</Card.Title>
                                             </div>
 
                                             <div className="numbers">
                                                 <p className="card-category">Support Vector Machine</p>
-                                                <Card.Title as="h4">{capitalize(predictions.SVM_prediction)}</Card.Title>
+                                                <Card.Title as="h4">{capitalize(svm)}</Card.Title>
                                             </div>
                                             <div className="numbers">
                                                 <p className="card-category">Decision Tree</p>
-                                                <Card.Title as="h4">{capitalize(predictions.DTree_prediction)}</Card.Title>
+                                                <Card.Title as="h4">{capitalize(dtree)}</Card.Title>
                                             </div>
                                         </Col>
                                     </Row>
@@ -321,13 +323,13 @@ export const Dashboard = () => {
                                                 alignItems: "center",
                                                 justifyContent: "center"
                                             }}>
-                                                {getClassFromRisk(predictions.MLP_prediction)}
+                                                {getClassFromRisk(predictions.ddos_risk_prediction)}
                                             </div>
                                         </Col>
                                         <Col xs="7">
                                             <div className="numbers">
                                                 <p className="card-category">Distributed Denial-of-Service</p>
-                                                <Card.Title as="h4">{capitalize(predictions.MLP_prediction)}</Card.Title>
+                                                <Card.Title as="h4">{capitalize(predictions.ddos_risk_prediction)}</Card.Title>
                                             </div>
                                         </Col>
                                     </Row>

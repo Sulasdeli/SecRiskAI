@@ -8,8 +8,8 @@ import {
 const initialState: UserProfileState = {
     profile: {
         "companyName": "Company XY",
-        "industry": "Healthcare",
-        "region": ["EUROPE"],
+        "industry": "HEALTHCARE",
+        "region": "EUROPE",
         "budget": 50000,
         "budgetWeight": 1,
         "investedAmount": 1077113,

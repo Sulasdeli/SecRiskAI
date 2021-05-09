@@ -1,9 +1,11 @@
 export type Prediction = {
-    KNN_prediction: string,
-    MLP_prediction: string,
-    SVM_prediction: string,
-    DTree_prediction: string,
-    ddos_prediction: string
+    overall_risk_prediction: {
+        knn: string,
+        mlp: string,
+        svm: string,
+        dtree: string
+    },
+    ddos_risk_prediction: string
 }
 
 export enum ActionTypes {

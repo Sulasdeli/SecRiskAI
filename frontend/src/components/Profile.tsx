@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-
 import useAppState from "../hooks/use-app-state";
 import {useDispatch} from "react-redux";
 import {toast} from "react-toastify";
@@ -12,7 +11,6 @@ import {
     FormControl,
     FormGroup,
     SelectPicker,
-    TagPicker,
     Col,
     Schema, RadioGroup, Radio, Icon, Grid, HelpBlock
 } from "rsuite";
@@ -20,13 +18,14 @@ import {Regions} from "../const/regions";
 import {ExternalAdvisor} from "../const/externalAdvisor";
 import Card from "react-bootstrap/Card";
 import {ActionTypes, UserProfile} from "../reducers/UserProfile/types";
+import {Industries} from "../const/industries";
 
-const {StringType, NumberType, ArrayType} = Schema.Types;
+const {StringType, NumberType} = Schema.Types;
 
 const model = Schema.Model({
     companyName: StringType().isRequired('This field is required.'),
     industry: StringType().isRequired('This field is required.'),
-    region: ArrayType().isRequired('This field is required.'),
+    region: StringType().isRequired('This field is required.'),
     businessValue: NumberType(),
     nrEmployees: NumberType(),
     budget: NumberType(),
@@ -115,18 +114,25 @@ export const Profile = () => {
                                     <Col md={8}>
                                         <FormGroup>
                                             <ControlLabel>Industry</ControlLabel>
-                                            <FormControl style={{width: "14em"}} name="industry"/>
+                                            <FormControl
+                                                style={{width: "21.5em"}}
+                                                name="industry"
+                                                accepter={SelectPicker}
+                                                searchable={false}
+                                                data={Industries}
+                                            />
                                         </FormGroup>
                                     </Col>
                                 </Row>
                                 <Row style={{marginTop: 22}}>
                                     <Col md={12}>
                                         <FormGroup>
-                                            <ControlLabel>Operational Region(s)</ControlLabel>
+                                            <ControlLabel>Operational Region</ControlLabel>
                                             <FormControl
-                                                style={{width: "26em"}}
+                                                style={{width: "21.5em"}}
                                                 name="region"
-                                                accepter={TagPicker}
+                                                accepter={SelectPicker}
+                                                searchable={false}
                                                 data={Regions}
                                             />
                                         </FormGroup>
@@ -163,7 +169,8 @@ export const Profile = () => {
                                                 name="employeeTraining"
                                                 accepter={RadioGroup}>
                                                 <Radio value={"LOW"}><span style={{fontSize: 12}}>Low</span></Radio>
-                                                <Radio value={"MEDIUM"}><span style={{fontSize: 12}}>Medium</span></Radio>
+                                                <Radio value={"MEDIUM"}><span
+                                                    style={{fontSize: 12}}>Medium</span></Radio>
                                                 <Radio value={"HIGH"}><span style={{fontSize: 12}}>High</span></Radio>
                                             </FormControl>
                                         </FormGroup>

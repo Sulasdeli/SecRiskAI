@@ -2,11 +2,13 @@ import {ActionTypes, ErrorFetchingPredictions, FetchedPredictions, FetchingPredi
 
 const initialState: PredictionState = {
     predictions: {
-        KNN_prediction: "",
-        MLP_prediction: "",
-        SVM_prediction: "",
-        DTree_prediction: "",
-        ddos_prediction: "",
+        overall_risk_prediction: {
+            knn: "",
+            mlp: "",
+            svm: "",
+            dtree: ""
+        },
+        ddos_risk_prediction: ""
     },
     pred_loading: false
 };
