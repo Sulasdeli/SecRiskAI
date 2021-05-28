@@ -276,7 +276,7 @@ export const Dashboard = () => {
                                         </Col>
                                         <Col xs="7">
                                             <div className="numbers">
-                                                <p className="card-category">K-Nearest Neighbours</p>
+                                                <p className="card-category">K-Nearest Neighbors</p>
                                                 <Card.Title as="h4">{capitalize(knn)}</Card.Title>
                                             </div>
 
