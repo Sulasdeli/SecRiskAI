@@ -16,7 +16,7 @@ services:
       - ml_decision_server
     environment:
       - ML_SERVER_URL=http://ml_decision_server:5000
-      - MENTOR_URL=http://protectddos:5000
+      - MENTOR_URL=http://protectddos:5001
     networks:
       - backend
   ml_decision_server:
