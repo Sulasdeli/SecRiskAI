@@ -391,13 +391,13 @@ export const Dashboard = () => {
                     <Card className="strpied-tabled-with-hover">
                         <Card.Header>
                             <Row>
-                                <Col className="pr-1" md="11">
+                                <Col className="pr-1">
                                     <Card.Title style={{fontSize: 24}}>Protection Services</Card.Title>
                                     <p className="card-category">
                                         Recommendations provided by MENTOR
                                     </p>
                                 </Col>
-                                <Col className="pr-1" md="1">
+                                <Col className="d-flex justify-content-end">
                                     <button type="button" className="btn btn-fill btn-info"
                                             onClick={() => setShowModal(true)}>
                                             <span className="btn-label">
