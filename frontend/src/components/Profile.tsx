@@ -84,7 +84,7 @@ export const Profile = () => {
     return (
         <Grid fluid>
             <Row>
-                <Col md={8} lg={20}>
+                <Col style={{width: 1000}}>
                     <Card>
                         <Card.Header>
                             <Card.Title as="h3">General Information</Card.Title>
