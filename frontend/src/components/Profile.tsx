@@ -84,7 +84,7 @@ export const Profile = () => {
     return (
         <Grid fluid>
             <Row>
-                <Col md={20}>
+                <Col md={8} lg={20}>
                     <Card>
                         <Card.Header>
                             <Card.Title as="h3">General Information</Card.Title>
@@ -205,7 +205,7 @@ export const Profile = () => {
                                 </Row>
                                 <h3>Technical Details</h3>
                                 <Row style={{marginTop: 22}}>
-                                    <Col md={10}>
+                                    <Col md={9}>
                                         <AmountField
                                             // @ts-ignore
                                             name="investedAmount"
@@ -216,7 +216,9 @@ export const Profile = () => {
                                             iconName="usd"
                                         />
                                     </Col>
-                                    <Col md={8}>
+                                </Row>
+                                <Row>
+                                    <Col md={9}>
                                         <AmountField
                                             // @ts-ignore
                                             name="knownVulnerabilities"
@@ -228,7 +230,7 @@ export const Profile = () => {
                                         />
 
                                     </Col>
-                                    <Col md={6}>
+                                    <Col md={8}>
                                         <FormGroup>
                                             <ControlLabel>External Advisor</ControlLabel>
                                             <FormControl
@@ -242,7 +244,7 @@ export const Profile = () => {
                                     </Col>
                                 </Row>
                                 <Row style={{marginTop: 5}}>
-                                    <Col md={8}>
+                                    <Col md={9}>
                                         <AmountField
                                             // @ts-ignore
                                             name="successfulAttacks"
@@ -253,7 +255,7 @@ export const Profile = () => {
                                             iconName="user-secret"
                                         />
                                     </Col>
-                                    <Col md={8}>
+                                    <Col md={9}>
                                         <AmountField
                                             // @ts-ignore
                                             name="failedAttacks"
