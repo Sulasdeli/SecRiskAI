@@ -60,7 +60,7 @@ class AmountField extends React.PureComponent {
         return (
             <FormGroup className={error ? 'has-error' : ''}>
                 <ControlLabel>{label}</ControlLabel>
-                <div className="rs-input-group rs-input-number" style={{width: "100%"}}>
+                <div className="rs-input-group rs-input-number">
                     <span className="rs-input-group-addon"><Icon icon={iconName}/></span>
                     <FormControl
                         name={name}
@@ -84,7 +84,7 @@ export const Profile = () => {
     return (
         <Grid fluid>
             <Row>
-                <Col md={8}>
+                <Col md={20}>
                     <Card>
                         <Card.Header>
                             <Card.Title as="h3">General Information</Card.Title>
@@ -100,7 +100,7 @@ export const Profile = () => {
                                 })
                             }}>
                                 <Row style={{marginTop: 22}}>
-                                    <Col md={12}>
+                                    <Col md={9}>
                                         <FormGroup>
                                             <ControlLabel>Company</ControlLabel>
                                             <div className="rs-input-group rs-input-number">
@@ -111,7 +111,7 @@ export const Profile = () => {
                                             </div>
                                         </FormGroup>
                                     </Col>
-                                    <Col md={8}>
+                                    <Col md={9}>
                                         <FormGroup>
                                             <ControlLabel>Industry</ControlLabel>
                                             <FormControl
@@ -125,7 +125,7 @@ export const Profile = () => {
                                     </Col>
                                 </Row>
                                 <Row style={{marginTop: 22}}>
-                                    <Col md={12}>
+                                    <Col md={9}>
                                         <FormGroup>
                                             <ControlLabel>Operational Region</ControlLabel>
                                             <FormControl
@@ -150,7 +150,7 @@ export const Profile = () => {
                                     </Col>
                                 </Row>
                                 <Row>
-                                    <Col md={8}>
+                                    <Col md={9}>
                                         <AmountField
                                             // @ts-ignore
                                             name="nrEmployees"
@@ -177,7 +177,7 @@ export const Profile = () => {
                                     </Col>
                                 </Row>
                                 <Row>
-                                    <Col md={8}>
+                                    <Col md={9}>
                                         <AmountField
                                             // @ts-ignore
                                             name="budget"
