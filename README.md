@@ -7,7 +7,7 @@ Thus, decision-makers have to decide how to handle a possible or imminent threat
 
 ## Architecture
 
-![SecRiskAI Architecture](public/architecture.pdf)
+![SecRiskAI Architecture](public/architecture.png)
 
 ## Installation using Docker
 
