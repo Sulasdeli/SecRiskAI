@@ -316,7 +316,8 @@ export const Dashboard = () => {
                             {pred_loading ? <CustomSpinner/> : (
                                 pred_error ? <h5 className="text-danger text-md-center font-italic">Failed to fetch
                                     server...</h5> : (
-                                    <Row>
+                                    <div>
+                                        <Row>
                                         <Col xs="5">
                                             <div className="icon-big text-center icon-warning" style={{
                                                 display: "flex",
@@ -333,6 +334,24 @@ export const Dashboard = () => {
                                             </div>
                                         </Col>
                                     </Row>
+                                        <Row>
+                                        <Col xs="5">
+                                            <div className="icon-big text-center icon-warning" style={{
+                                                display: "flex",
+                                                alignItems: "center",
+                                                justifyContent: "center"
+                                            }}>
+                                                {getClassFromRisk(predictions.overall_risk_prediction.mlp)}
+                                            </div>
+                                        </Col>
+                                        <Col xs="7">
+                                            <div className="numbers">
+                                                <p className="card-category">Phishing</p>
+                                                <Card.Title as="h4">{capitalize(predictions.overall_risk_prediction.mlp)}</Card.Title>
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                    </div>
                                 )
                             )}
                         </Card.Body>
