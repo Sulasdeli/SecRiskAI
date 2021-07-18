@@ -3,6 +3,7 @@ import {useLocation, NavLink} from "react-router-dom";
 
 import {Nav} from "react-bootstrap";
 import {route} from "../routes/routes";
+import {Icon} from "rsuite";
 
 interface SidebarProps {
     color: string,
@@ -19,16 +20,8 @@ export const Sidebar = (props: SidebarProps) => {
         <div className="sidebar" data-color={props.color}>
             <div className="sidebar-wrapper">
                 <div className="logo d-flex align-items-center justify-content-start">
-                    <a href="/#" className="simple-text logo-mini mx-1">
-                        <div className="logo-img">
-                            {/*<img*/}
-                            {/*  src={require("../assets/img/reactlogo.png").default}*/}
-                            {/*  alt="..."*/}
-                            {/*/>*/}
-                        </div>
-                    </a>
                     <a href="/#" className="simple-text">
-                        Cyber Risk Classifier
+                        <Icon size="2x" icon={"realtime"} /> SecRiskAI
                     </a>
                 </div>
                 <Nav>
