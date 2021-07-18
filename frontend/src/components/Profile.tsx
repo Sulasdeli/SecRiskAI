@@ -12,7 +12,7 @@ import {
     FormGroup,
     SelectPicker,
     Col,
-    Schema, RadioGroup, Radio, Icon, Grid, HelpBlock
+    Schema, RadioGroup, Radio, Icon, Grid, HelpBlock, Whisper, Tooltip
 } from "rsuite";
 import {Regions} from "../const/regions";
 import {ExternalAdvisor} from "../const/externalAdvisor";
@@ -78,16 +78,75 @@ export const Profile = () => {
     const {profile} = useAppState(s => s.profile);
     const [formValue, setFormValue] = useState({...profile});
     const [formError, setFormError] = React.useState({});
-
     const dispatch = useDispatch();
+
+    const setScenario1 = () => {
+        setFormValue({
+            budget: 50000,
+            budgetWeight: 1,
+            businessValue: 5000000,
+            companyName: "E-Shop",
+            employeeTraining: "LOW",
+            externalAdvisor: "NO",
+            failedAttacks: 15,
+            industry: "ECOMMERCE",
+            investedAmount: 130000,
+            knownVulnerabilities: 2,
+            nrEmployees: 10000,
+            region: "EUROPE",
+            successfulAttacks: 4
+        })
+    }
+
+    const setScenario2 = () => {
+        setFormValue({
+            budget: 750000,
+            budgetWeight: 1,
+            businessValue: 36000000,
+            companyName: "Bank X",
+            employeeTraining: "LOW",
+            externalAdvisor: "NO",
+            failedAttacks: 15,
+            industry: "FINANCIAL SERVICES",
+            investedAmount: 500000,
+            knownVulnerabilities: 0,
+            nrEmployees: 70000,
+            region: "NORTH AMERICA",
+            successfulAttacks: 2
+        })
+    }
+
+    const tooltip = (text: String) => {
+        return (
+            <Tooltip>{text}</Tooltip>
+        )
+    };
 
     return (
         <Grid fluid>
             <Row>
-                <Col style={{width: 1000}}>
+                <Col style={{width: 700}}>
                     <Card>
                         <Card.Header>
-                            <Card.Title as="h3">General Information</Card.Title>
+                            <Row>
+                                <Col md={14}>
+                                    <Card.Title as="h3">General Information</Card.Title>
+                                </Col>
+                                <Col md={5}>
+                                    <Whisper placement="top" trigger="hover" speaker={tooltip("DDoS & Mentor")}>
+                                        <Button color="cyan" onClick={setScenario1}>
+                                        <Icon icon="user-info"/> Case Study #1
+                                    </Button>
+                                    </Whisper>
+                                </Col>
+                                <Col md={4}>
+                                    <Whisper placement="top" trigger="hover" speaker={tooltip("Phishing")}>
+                                        <Button color="cyan" onClick={setScenario2}>
+                                            <Icon icon="user-info"/> Case Study #2
+                                        </Button>
+                                    </Whisper>
+                                </Col>
+                            </Row>
                         </Card.Header>
                         <Card.Body>
                             <hr/>
@@ -100,7 +159,7 @@ export const Profile = () => {
                                 })
                             }}>
                                 <Row style={{marginTop: 22}}>
-                                    <Col md={9}>
+                                    <Col md={12}>
                                         <FormGroup>
                                             <ControlLabel>Company</ControlLabel>
                                             <div className="rs-input-group rs-input-number">
@@ -111,7 +170,7 @@ export const Profile = () => {
                                             </div>
                                         </FormGroup>
                                     </Col>
-                                    <Col md={9}>
+                                    <Col md={12}>
                                         <FormGroup>
                                             <ControlLabel>Industry</ControlLabel>
                                             <FormControl
@@ -125,7 +184,7 @@ export const Profile = () => {
                                     </Col>
                                 </Row>
                                 <Row style={{marginTop: 22}}>
-                                    <Col md={9}>
+                                    <Col md={12}>
                                         <FormGroup>
                                             <ControlLabel>Operational Region</ControlLabel>
                                             <FormControl
@@ -150,7 +209,7 @@ export const Profile = () => {
                                     </Col>
                                 </Row>
                                 <Row>
-                                    <Col md={9}>
+                                    <Col md={12}>
                                         <AmountField
                                             // @ts-ignore
                                             name="nrEmployees"
@@ -177,7 +236,7 @@ export const Profile = () => {
                                     </Col>
                                 </Row>
                                 <Row>
-                                    <Col md={9}>
+                                    <Col md={12}>
                                         <AmountField
                                             // @ts-ignore
                                             name="budget"
@@ -218,7 +277,7 @@ export const Profile = () => {
                                     </Col>
                                 </Row>
                                 <Row>
-                                    <Col md={9}>
+                                    <Col md={12}>
                                         <AmountField
                                             // @ts-ignore
                                             name="knownVulnerabilities"
@@ -244,7 +303,7 @@ export const Profile = () => {
                                     </Col>
                                 </Row>
                                 <Row style={{marginTop: 5}}>
-                                    <Col md={9}>
+                                    <Col md={12}>
                                         <AmountField
                                             // @ts-ignore
                                             name="successfulAttacks"
